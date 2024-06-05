@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <name><<APP-NAME>></name>
+  <id><<APP-ID>>.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <description>
+    <p>
+      
+    </p>
+  </description>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <content_rating type="oars-1.1">
+    <!-- Can be generated here https://hughsie.github.io/oars/generate.html -->
+  </content_rating>
+  <screenshots>
+    
+  </screenshots>
+  <summary>
+
+  </summary>
+  <launchable type="desktop-id"><<APP-ID>>.desktop</launchable>
+  <releases>
+
+  </releases>
+  <url type="homepage"></url>
+  <url type="bugtracker"></url>
+  <url type="help"></url>
+  <developer_name>
+    <<DEVELOPER-NAME>>
+  </developer_name>
+</component>

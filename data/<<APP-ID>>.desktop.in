@@ -1,0 +1,12 @@
+[Desktop Entry]
+# Translators: app name should be translated
+Name=<<APP-NAME>>
+Comment=
+# Translators: keep number of ';'
+Keywords=
+Exec=<<APP-COMMAND>>
+Icon=<<APP-ID>>
+Terminal=false
+Type=Application
+Categories=
+StartupNotify=true
