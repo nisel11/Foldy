@@ -1,4 +1,4 @@
-/* Copyright 2024 <<DEVELOPER-NAME>>
+/* Copyright 2024 Rirusha
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,15 @@
  */
 
 
-[GtkTemplate (ui = "<<RESOURCES-PATH>>ui/main_window.ui")]
-public class <<APP-NAMESPACE>>.MainWindow : Adw.ApplicationWindow {
+[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/window.ui")]
+public class Foldy.Window : Adw.ApplicationWindow {
 
     const ActionEntry[] ACTION_ENTRIES = {
         { "preferences", on_preferences_action },
         { "about", on_about_action },
     };
 
-    public MainWindow (<<APP-NAMESPACE>>.Application app) {
+    public Window (Foldy.Application app) {
         Object (application: app);
     }
 
@@ -44,14 +44,14 @@ public class <<APP-NAMESPACE>>.MainWindow : Adw.ApplicationWindow {
 
     void on_about_action () {
         var about = new Adw.AboutDialog () {
-            application_name = "<<APP-NAME>>",
+            application_name = "Foldy",
             application_icon = Config.APP_ID_DYN,
-            developer_name = "<<DEVELOPER-NAME>>",
+            developer_name = "Rirusha",
             version = Config.VERSION,
             // Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
             translator_credits = _("translator-credits"),
             license_type = Gtk.License.GPL_3_0,
-            copyright = "© 2024 <<DEVELOPER-NAME>>",
+            copyright = "© 2024 Rirusha",
             release_notes_version = Config.VERSION
         };
 

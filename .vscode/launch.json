@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "Flatpak launch build",
             "gdbpath": "${workspaceRoot}/.vscode/gdb.sh",
-            "target": "${workspaceRoot}/_build/src/<<APP-COMMAND>>",
+            "target": "${workspaceRoot}/_build/src/foldy",
             "arguments": "",
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText"

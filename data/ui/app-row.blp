@@ -1,0 +1,17 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $FoldyAppRow : Adw.ActionRow {
+  activatable: true;
+
+  [suffix]
+  Button delete_button {
+    styles [
+      "destructive-action"
+    ]
+
+    halign: center;
+    valign: center;
+    icon-name: "app-remove-symbolic";
+  }
+}

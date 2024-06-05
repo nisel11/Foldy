@@ -1,4 +1,4 @@
-/* Copyright 2024 <<DEVELOPER-NAME>>
+/* Copyright 2024 Rirusha
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  */
 
 
-public class <<APP-NAMESPACE>>.Application : Adw.Application {
+public class Foldy.Application : Adw.Application {
 
     const ActionEntry[] ACTION_ENTRIES = {
         { "quit", quit },
@@ -25,7 +25,7 @@ public class <<APP-NAMESPACE>>.Application : Adw.Application {
     public Application () {
         Object (
             application_id: Config.APP_ID_DYN,
-            resource_base_path: "<<RESOURCES-PATH>>"
+            resource_base_path: "/io/github/Rirusha/Foldy/"
         );
     }
 
@@ -38,7 +38,7 @@ public class <<APP-NAMESPACE>>.Application : Adw.Application {
         base.activate ();
 
         if (active_window == null) {
-            var win = new MainWindow (this);
+            var win = new Window (this);
 
             win.present ();
 

@@ -1,11 +1,11 @@
 [Desktop Entry]
 # Translators: app name should be translated
-Name=<<APP-NAME>>
+Name=Foldy
 Comment=
 # Translators: keep number of ';'
 Keywords=
-Exec=<<APP-COMMAND>>
-Icon=<<APP-ID>>
+Exec=foldy
+Icon=io.github.Rirusha.Foldy
 Terminal=false
 Type=Application
 Categories=

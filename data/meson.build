@@ -38,8 +38,12 @@ endif
 
 blueprints = custom_target('blueprints',
   input: files(
-    'ui/main_window.blp',
-    'ui/help_overlay.blp'
+    'ui/app-row.blp',
+    'ui/base-page.blp',
+    'ui/folder-page.blp',
+    'ui/folders-list-page.blp',
+    'ui/window.blp',
+    'ui/help-overlay.blp',
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
@@ -47,10 +51,10 @@ blueprints = custom_target('blueprints',
 
 resource_files = files('@0@.gresource.xml'.format(app_id))
 resources = gnome.compile_resources(
-  '<<APP-COMMAND>>-resources',
+  'foldy-resources',
   resource_files,
   dependencies: blueprints,
-  c_name: '<<APP-COMMAND-C-NAME>>'
+  c_name: 'foldy'
 )
 
 subdir('icons')

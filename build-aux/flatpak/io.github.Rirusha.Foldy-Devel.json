@@ -1,9 +1,9 @@
 {
-    "id" : "<<APP-ID>>-Devel",
+    "id" : "io.github.Rirusha.Foldy-Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
-    "command" : "<<APP-COMMAND>>",
+    "command" : "foldy",
     "finish-args" : [
         "--share=network",
         "--share=ipc",
@@ -42,7 +42,7 @@
             ]
         },
         {
-            "name" : "<<APP-COMMAND>>",
+            "name" : "foldy",
             "builddir" : true,
             "buildsystem" : "meson",
             "config-opts": [ "-Dprofile=development" ],

@@ -1,4 +1,4 @@
-/* Copyright 2024 <<DEVELOPER-NAME>>
+/* Copyright 2024 Rirusha
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ int main (string[] args) {
     Intl.bind_textdomain_codeset (Config.GETTEXT_PACKAGE, "UTF-8");
     Intl.textdomain (Config.GETTEXT_PACKAGE);
 
-    Environment.set_application_name (_("<<APP-NAME>>"));
+    Environment.set_application_name (_("Foldy"));
 
-    var app = new <<APP-NAMESPACE>>.Application ();
+    var app = new Foldy.Application ();
     return app.run (args);
 }

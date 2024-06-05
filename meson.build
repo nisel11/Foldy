@@ -1,5 +1,5 @@
 project(
-  '<<APP-COMMAND>>',
+  'foldy',
   ['c', 'vala'],
   version: '0.1.0',
   meson_version: '>= 0.62.0',
@@ -12,7 +12,7 @@ gnome = import('gnome')
 gtk = dependency('gtk4', version: '>= 4.14')
 libadwaita = dependency('libadwaita-1', version: '>= 1.5')
 
-app_id = '<<APP-ID>>'
+app_id = 'io.github.Rirusha.Foldy'
 
 if get_option('profile') == 'development'
   name_postfix = ' (Dev ver.)'
@@ -38,7 +38,7 @@ conf.set_quoted('GNOMELOCALEDIR', join_paths(get_option('prefix'), get_option('l
 
 subdir('data')
 
-<<APP-COMMAND-C-NAME>>_dependencies = [
+foldy_dependencies = [
   gtk,
   libadwaita
 ]
