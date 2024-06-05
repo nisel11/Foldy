@@ -1,7 +1,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $FoldyRefreshablePage: Adw.NavigationPage {
+template $FoldyBasePage: Adw.NavigationPage {
   Adw.ToolbarView toolbar_view {
     top-bar-style: raised;
     bottom-bar-style: raised;
@@ -11,10 +11,10 @@ template $FoldyRefreshablePage: Adw.NavigationPage {
       orientation: vertical;
 
       Adw.HeaderBar {
-        [start]
-        Button refresh_button {
-          icon-name: "view-refresh-symbolic";
-        }
+        // [start]
+        // Button refresh_button {
+        //   icon-name: "view-refresh-symbolic";
+        // }
 
         [start]
         ToggleButton search_button {
@@ -22,12 +22,7 @@ template $FoldyRefreshablePage: Adw.NavigationPage {
         }
 
         [end]
-        MenuButton {
-          primary: true;
-          icon-name: "open-menu-symbolic";
-          tooltip-text: _("Main menu");
-          menu-model: primary_menu;
-        }
+        $FoldyMainMenuButton main_menu_button {}
       }
 
       Gtk.Revealer {
@@ -91,23 +86,6 @@ template $FoldyRefreshablePage: Adw.NavigationPage {
       margin-start: 12;
       margin-top: 12;
       maximum-size: 500;
-
-      // Button create_new_button {
-      //   styles [
-      //     "pill",
-      //     "suggested-action"
-      //   ]
-
-      //   label: _("Create new folder");
-      // }
     }
-  }
-}
-
-menu primary_menu {
-  section {
-    item (_("_Preferences"), "win.preferences")
-    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("_About Foldy"), "win.about")
   }
 }

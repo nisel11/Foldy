@@ -5,13 +5,26 @@ template $FoldyAppRow : Adw.ActionRow {
   activatable: true;
 
   [suffix]
-  Button delete_button {
-    styles [
-      "destructive-action"
-    ]
+  Stack {
+    StackPage {
+      name: "icon";
+      child: Image icon_image {
+        icon-size: large;
+        halign: fill;
+        valign: fill;
+      };
+    }
 
-    halign: center;
-    valign: center;
-    icon-name: "app-remove-symbolic";
+    StackPage {
+      name: "check";
+      child: CheckButton check_button {
+        styles [
+          "selection-mode"
+        ]
+
+        halign: center;
+        valign: center;
+      };
+    }
   }
 }

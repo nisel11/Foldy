@@ -1,4 +1,4 @@
-/* Copyright 2023-2024 Rirusha
+/* Copyright 2024 Rirusha
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,5 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-
-public int main (string[] args) {
-
-    Test.add_func ("/test/example", () => {
-        message ("Oh, fine!");
-    });
-
-    return Test.run ();
-}
+[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/main-menu-button.ui")]
+public sealed class Foldy.MainMenuButton: Adw.Bin {}

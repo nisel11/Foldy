@@ -15,8 +15,11 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+namespace Foldy {
+    static Foldy.Application application;
+}
 
-public class Foldy.Application : Adw.Application {
+public sealed class Foldy.Application: Adw.Application {
 
     const ActionEntry[] ACTION_ENTRIES = {
         { "quit", quit },
@@ -30,8 +33,16 @@ public class Foldy.Application : Adw.Application {
     }
 
     construct {
+        application = this;
+
         add_action_entries (ACTION_ENTRIES, this);
         set_accels_for_action ("app.quit", { "<primary>q" });
+    }
+
+    public void show_message (string message) {
+        if (active_window != null) {
+            ((Window) active_window).show_message (message);
+        }
     }
 
     public override void activate () {
