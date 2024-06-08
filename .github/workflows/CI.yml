@@ -27,7 +27,7 @@ jobs:
     needs: lint
 
     container:
-      image: alt:sisyphus
+      image: ubuntu:latest
       options: --privileged
 
     steps:
