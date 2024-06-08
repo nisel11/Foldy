@@ -82,4 +82,3 @@ public sealed class Foldy.FolderPage: BasePage {
         return search_text.down () in app_row.app_id.down ();
     }
 }
- 
