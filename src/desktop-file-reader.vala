@@ -19,12 +19,12 @@ public sealed class Foldy.DesktopFileReader: Object {
 
     public string filepath { get; construct; }
 
-    public DesktopFileReader (string filepath) {
+    DesktopFileReader (string filepath) {
         Object (filepath: filepath);
     }
 
-    public DesktopFileReader.with_name (string filename) {
-        string output = "";
+    public static DesktopFileReader? create_with_filename (string filename) {
+        string? output = null;
 
         try {
             Process.spawn_command_line_sync ("find /usr/share/applications/ /usr/local/share/applications/ /home/rirusha/.local/share/applications/ /var/lib/flatpak/exports/share/applications/ /home/rirusha/.local/share/flatpak/exports/share/applications/ -name \"%s\"".printf (
@@ -34,9 +34,13 @@ public sealed class Foldy.DesktopFileReader: Object {
             warning ("Can't find");
         }
 
-        string filepath = output.strip ().split ("\n")[0].strip ();
+        if (output != null) {
+            if (output.strip () != "") {
+                return new DesktopFileReader (output.strip ().split ("\n")[0].strip ());
+            }
+        }
 
-        Object (filepath: filepath);
+        return null;
     }
 
     string read_file () {

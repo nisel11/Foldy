@@ -30,7 +30,10 @@ public sealed class Foldy.FolderPage: BasePage {
     }
 
     construct {
-        title = get_folder_name (folder_id);
+        selection_button.visible = true;
+
+        page_title = get_folder_name (folder_id);
+        page_subtitle = folder_id;
 
         row_box.row_activated.connect ((row) => {
             var app_row = (AppRow) row;
@@ -71,8 +74,26 @@ public sealed class Foldy.FolderPage: BasePage {
     protected override void update_list () {
         row_box.remove_all ();
 
+        update_list_async.begin ();
+    }
+
+    async void update_list_async () {
         foreach (string app_id in get_folder_apps (folder_id)) {
-            row_box.append (new AppRow (folder_id, app_id));
+            var dfr = DesktopFileReader.create_with_filename (app_id);
+
+            if (dfr != null) {
+                var app_row = new AppRow (folder_id, app_id, dfr);
+
+                selection_button.bind_property (
+                    "active",
+                    app_row, "selection-enabled",
+                    BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+
+                row_box.append (app_row);
+
+                Idle.add (update_list_async.callback);
+                yield;
+            }
         }
     }
 

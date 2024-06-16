@@ -18,12 +18,14 @@
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/base-page.ui")]
 public abstract class Foldy.BasePage: Adw.NavigationPage {
 
-    //  [GtkChild]
-    //  unowned Gtk.Button refresh_button;
     [GtkChild]
     unowned Gtk.ToggleButton search_button;
     [GtkChild]
     unowned Gtk.SearchEntry search_entry;
+    [GtkChild]
+    unowned Adw.WindowTitle window_title;
+    [GtkChild]
+    protected unowned Gtk.ToggleButton selection_button;
     [GtkChild]
     unowned MainMenuButton main_menu_button;
     [GtkChild]
@@ -50,14 +52,14 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
         }
     }
 
+    public string page_title { get; set; }
+
+    public string page_subtitle { get; set; }
+
     uint32 total_visible_rows = 0;
 
     construct {
         assert (nav_view != null);
-
-        //  refresh_button.clicked.connect (() => {
-        //      refresh (); 
-        //  });
 
         search_entry.search_changed.connect (() => {
             apply_filter ();
@@ -69,8 +71,10 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
             }
         });
 
-        nav_view.popped.connect (() => {
-            refresh ();
+        nav_view.popped.connect ((page) => {
+            if (page != this) {
+                refresh ();
+            }
         });
 
         list_box.set_filter_func ((row) => {

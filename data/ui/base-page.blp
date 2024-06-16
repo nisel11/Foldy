@@ -2,6 +2,8 @@ using Gtk 4.0;
 using Adw 1;
 
 template $FoldyBasePage: Adw.NavigationPage {
+  title: "title";
+
   Adw.ToolbarView toolbar_view {
     top-bar-style: raised;
     bottom-bar-style: raised;
@@ -11,14 +13,24 @@ template $FoldyBasePage: Adw.NavigationPage {
       orientation: vertical;
 
       Adw.HeaderBar {
-        // [start]
-        // Button refresh_button {
-        //   icon-name: "view-refresh-symbolic";
-        // }
-
         [start]
         ToggleButton search_button {
           icon-name: "system-search-symbolic";
+        }
+
+        title-widget: Adw.WindowTitle window_title {
+          title: bind template.page-title;
+          subtitle: bind template.page-subtitle;
+        };
+
+        [end]
+        ToggleButton selection_button {
+          styles [
+            "flat"
+          ]
+
+          icon-name: "selection-mode-symbolic";
+          visible: false;
         }
 
         [end]

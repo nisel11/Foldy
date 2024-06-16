@@ -19,6 +19,8 @@
 public sealed class Foldy.AppRow: Adw.ActionRow {
 
     [GtkChild]
+    unowned Gtk.Stack icon_stack;
+    [GtkChild]
     unowned Gtk.Image icon_image;
     [GtkChild]
     unowned Gtk.CheckButton check_button;
@@ -27,13 +29,30 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
 
     public string app_id { get; construct; }
 
-    public AppRow (string folder_id, string app_id) {
-        Object (folder_id: folder_id, app_id: app_id);
+    public DesktopFileReader dfr { get; construct; }
+
+    bool _selection_enabled = false;
+    public bool selection_enabled {
+        get {
+            return _selection_enabled;
+        }
+        set {
+            _selection_enabled = value;
+
+            if (value) {
+                icon_stack.visible_child_name = "check";
+
+            } else {
+                icon_stack.visible_child_name = "icon";
+            }
+        }
+    }
+
+    public AppRow (string folder_id, string app_id, DesktopFileReader dfr) {
+        Object (folder_id: folder_id, app_id: app_id, dfr: dfr);
     }
 
     construct {
-        var dfr = new DesktopFileReader.with_name (app_id);
-
         title = dfr.read_name ();
         subtitle = app_id;
 

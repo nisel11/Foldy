@@ -5,7 +5,9 @@ template $FoldyAppRow : Adw.ActionRow {
   activatable: true;
 
   [suffix]
-  Stack {
+  Stack icon_stack {
+    transition-type: crossfade;
+
     StackPage {
       name: "icon";
       child: Image icon_image {
