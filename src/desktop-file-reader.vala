@@ -24,17 +24,19 @@ public sealed class Foldy.DesktopFileReader: Object {
     }
 
     public DesktopFileReader.with_name (string filename) {
-        string filepath = "";
+        string output = "";
 
         try {
             Process.spawn_command_line_sync ("find /usr/share/applications/ /usr/local/share/applications/ /home/rirusha/.local/share/applications/ /var/lib/flatpak/exports/share/applications/ /home/rirusha/.local/share/flatpak/exports/share/applications/ -name \"%s\"".printf (
                 filename
-            ), out filepath);
+            ), out output);
         } catch (Error e) {
             warning ("Can't find");
         }
 
-        Object (filepath: filepath.strip ());
+        string filepath = output.strip ().split ("\n")[0].strip ();
+
+        Object (filepath: filepath);
     }
 
     string read_file () {
@@ -63,14 +65,14 @@ public sealed class Foldy.DesktopFileReader: Object {
 
         try {
             var regex = new Regex (
-                "(?<=Icon=).*",
+                "Icon\\s*=\\s*(.+)",
                 RegexCompileFlags.OPTIMIZE,
                 RegexMatchFlags.NOTEMPTY
             );
 
             MatchInfo match_info;
             if (regex.match (read_file (), 0, out match_info)) {
-                icon_name = match_info.fetch (0);
+                icon_name = match_info.fetch (1);
             }
 
         } catch (Error e) {}
@@ -83,14 +85,14 @@ public sealed class Foldy.DesktopFileReader: Object {
 
         try {
             var regex = new Regex (
-                "(?<=Name=).*",
+                "Name\\s*=\\s*(.+)",
                 RegexCompileFlags.OPTIMIZE,
                 RegexMatchFlags.NOTEMPTY
             );
 
             MatchInfo match_info;
             if (regex.match (read_file (), 0, out match_info)) {
-                name = match_info.fetch (0);
+                name = match_info.fetch (1);
             }
 
         } catch (Error e) {}

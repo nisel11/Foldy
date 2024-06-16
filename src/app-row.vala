@@ -35,8 +35,16 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
         var dfr = new DesktopFileReader.with_name (app_id);
 
         title = dfr.read_name ();
-        icon_image.icon_name = dfr.read_icon_name ();
         subtitle = app_id;
+
+        string icon_name = dfr.read_icon_name ();
+        if (icon_name.has_suffix (".png") ||
+            icon_name.has_suffix (".jpg") ||
+            icon_name.has_suffix (".jpeg")) {
+                icon_image.set_from_file (icon_name);
+            } else {
+                icon_image.set_from_icon_name (icon_name);
+            }
 
         activated.connect (() => {
             check_button.active = !check_button.active;
