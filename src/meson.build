@@ -10,7 +10,6 @@ foldy_sources = [
   'app-row.vala',
   'application.vala',
   'base-page.vala',
-  'desktop-file-reader.vala',
   'folder-page.vala',
   'folder-row.vala',
   'folders-list-page.vala',

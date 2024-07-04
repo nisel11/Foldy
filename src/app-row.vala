@@ -27,9 +27,7 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
 
     public string folder_id { get; construct; }
 
-    public string app_id { get; construct; }
-
-    public DesktopFileReader dfr { get; construct; }
+    public AppInfo app_info { get; construct; }
 
     bool _selection_enabled = false;
     public bool selection_enabled {
@@ -48,22 +46,32 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
         }
     }
 
-    public AppRow (string folder_id, string app_id, DesktopFileReader dfr) {
-        Object (folder_id: folder_id, app_id: app_id, dfr: dfr);
+    public AppRow (string folder_id, AppInfo app_info) {
+        Object (folder_id: folder_id, app_info: app_info);
     }
 
     construct {
-        title = dfr.read_name ();
-        subtitle = app_id;
+        title = app_info.get_display_name ();
+        subtitle = app_info.get_id ();
 
-        string icon_name = dfr.read_icon_name ();
-        if (icon_name.has_suffix (".png") ||
-            icon_name.has_suffix (".jpg") ||
-            icon_name.has_suffix (".jpeg")) {
-                icon_image.set_from_file (icon_name);
-            } else {
-                icon_image.set_from_icon_name (icon_name);
-            }
+        Icon icon = app_info.get_icon ();
+
+        if (icon is ThemedIcon) {
+            //  var icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
+
+            //  new Gdk.Pixbuf.from_stream_async ();
+            //  icon_image.set_from_paintable ()
+            icon_image.set_from_icon_name (icon.to_string ());
+
+        } else if (icon is LoadableIcon) {
+            icon_image.set_from_file (icon.to_string ());
+
+        } else if (icon is EmblemedIcon) {
+            icon_image.set_from_icon_name (icon.to_string ());
+
+        } else {
+            warning ("Unknown icon format");
+        }
 
         activated.connect (() => {
             check_button.active = !check_button.active;

@@ -2,12 +2,29 @@ using Gtk 4.0;
 using Adw 1;
 
 template $FoldyFolderPage : $FoldyBasePage {
-  bottom-widget: Button delete_button {
-    styles [
-      "pill",
-      "destructive-action"
-    ]
+  bottom-widget: Stack bottom_stack {
+    StackPage {
+      name: "delete-button";
+      child: Button delete_button {
+        styles [
+          "pill",
+          "destructive-action"
+        ]
 
-    label: _("Delete folder");
+        label: _("Remove folder");
+      };
+    }
+
+    StackPage {
+      name: "selection-mode";
+      child: Button delete_selected_button {
+        styles [
+          "pill",
+          "destructive-action"
+        ]
+
+        label: _("Remove selected from that folder");
+      };
+    }
   };
 }

@@ -38,7 +38,7 @@ public sealed class Foldy.FolderPage: BasePage {
         row_box.row_activated.connect ((row) => {
             var app_row = (AppRow) row;
 
-            if (!(app_row.app_id in get_folder_apps (folder_id))) {
+            if (!(app_row.app_info.get_id () in get_folder_apps (folder_id))) {
                 refresh ();
 
                 application.show_message (_("Can't open folder settings"));
@@ -78,11 +78,12 @@ public sealed class Foldy.FolderPage: BasePage {
     }
 
     async void update_list_async () {
-        foreach (string app_id in get_folder_apps (folder_id)) {
-            var dfr = DesktopFileReader.create_with_filename (app_id);
+        var app_infos = AppInfo.get_all ();
+        var folder_apps = get_folder_apps (folder_id);
 
-            if (dfr != null) {
-                var app_row = new AppRow (folder_id, app_id, dfr);
+        foreach (AppInfo app_info in app_infos) {
+            if (app_info.get_id () in folder_apps) {
+                var app_row = new AppRow (folder_id, app_info);
 
                 selection_button.bind_property (
                     "active",
@@ -100,6 +101,6 @@ public sealed class Foldy.FolderPage: BasePage {
     protected override bool filter (Gtk.ListBoxRow row, string search_text) {
         var app_row = (AppRow) row;
 
-        return search_text.down () in app_row.app_id.down ();
+        return search_text.down () in app_row.app_info.get_id ().down ();
     }
 }
