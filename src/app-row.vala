@@ -54,24 +54,7 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
         title = app_info.get_display_name ();
         subtitle = app_info.get_id ();
 
-        Icon icon = app_info.get_icon ();
-
-        if (icon is ThemedIcon) {
-            //  var icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-
-            //  new Gdk.Pixbuf.from_stream_async ();
-            //  icon_image.set_from_paintable ()
-            icon_image.set_from_icon_name (icon.to_string ());
-
-        } else if (icon is LoadableIcon) {
-            icon_image.set_from_file (icon.to_string ());
-
-        } else if (icon is EmblemedIcon) {
-            icon_image.set_from_icon_name (icon.to_string ());
-
-        } else {
-            warning ("Unknown icon format");
-        }
+        set_icon.begin ();
 
         activated.connect (() => {
             check_button.active = !check_button.active;
@@ -80,5 +63,66 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
         //  delete_button.clicked.connect (() => {
         //      remove_app_from_folder (folder_id, app_id);
         //  });
+    }
+    async void set_icon (int priority = Priority.DEFAULT) {
+
+        Icon icon = app_info.get_icon ();
+
+        if (icon is ThemedIcon) {
+            var icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
+
+            var ip = icon_theme.lookup_by_gicon (icon, 32, 1, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.FORCE_REGULAR);
+
+            InputStream? input = null;
+
+            try {
+                input = yield ip.file.read_async (priority);
+
+            } catch (Error e) {
+                warning (e.message);
+                return;
+            }
+
+            Gdk.Pixbuf? pb = null;
+
+            try {
+                pb = yield new Gdk.Pixbuf.from_stream_async (input);
+
+            } catch (Error e) {
+                warning (e.message);
+                return;
+            }
+
+            icon_image.set_from_paintable (Gdk.Texture.for_pixbuf (pb));
+
+        } else if (icon is LoadableIcon) {
+            InputStream? input = null;
+
+            try {
+                input = yield ((LoadableIcon) icon).load_async (64);
+
+            } catch (Error e) {
+                warning (e.message);
+                return;
+            }
+
+            Gdk.Pixbuf? pb = null;
+
+            try {
+                pb = yield new Gdk.Pixbuf.from_stream_async (input);
+
+            } catch (Error e) {
+                warning (e.message);
+                return;
+            }
+            
+            icon_image.set_from_paintable (Gdk.Texture.for_pixbuf (pb));
+
+        } else if (icon is EmblemedIcon) {
+            icon_image.set_from_icon_name (icon.to_string ());
+
+        } else {
+            warning ("Unknown icon format");
+        }
     }
 }
