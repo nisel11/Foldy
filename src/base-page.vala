@@ -105,7 +105,7 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
 
         search_revealer.notify["reveal-child"].connect (() => {
             if (search_revealer.reveal_child) {
-                search_entry.focus (Gtk.DirectionType.DOWN);
+                Foldy.Application.get_default ().active_window.focus_widget = search_entry;
             }
         });
 
