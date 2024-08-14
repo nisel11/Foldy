@@ -16,7 +16,7 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/folders-list-page.ui")]
-public sealed class Foldy.FoldersListPage: BasePage {
+public sealed class Foldy.FoldersListPage : BasePage {
 
     [GtkChild]
     unowned Gtk.Button create_new_button;
@@ -34,7 +34,7 @@ public sealed class Foldy.FoldersListPage: BasePage {
             if (!(folder_row.folder_id in get_folders ())) {
                 refresh ();
 
-                application.show_message (_("Can't open folder settings"));
+                Foldy.Application.get_default ().show_message (_("Can't open folder settings"));
 
                 return;
             }
@@ -50,7 +50,7 @@ public sealed class Foldy.FoldersListPage: BasePage {
 
         settings = new Settings ("org.gnome.desktop.app-folders");
 
-        settings.changed.connect (() => {
+        settings.changed["folder-children"].connect (() => {
             Idle.add_once (refresh);
         });
     }
@@ -59,10 +59,7 @@ public sealed class Foldy.FoldersListPage: BasePage {
         row_box.remove_all ();
 
         foreach (string folder_id in get_folders ()) {
-            var row = new FolderRow (folder_id);
-
-            row_box.append (row);
-            row.settings_changed.connect (refresh);
+            row_box.append (new FolderRow (folder_id));
         }
     }
 

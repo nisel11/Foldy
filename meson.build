@@ -38,17 +38,13 @@ conf.set_quoted('GNOMELOCALEDIR', join_paths(get_option('prefix'), get_option('l
 
 subdir('data')
 
-foldy_dependencies = [
-  gtk,
-  libadwaita
-]
+foldy_dependencies = [gtk, libadwaita]
 
 configure_file(output: 'config.h', configuration: conf)
 config_h_dir = include_directories('.')
 
 subdir('po')
 subdir('src')
-subdir('tests')
 
 gnome.post_install(
   glib_compile_schemas: true,

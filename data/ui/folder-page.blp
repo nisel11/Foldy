@@ -1,30 +1,68 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $FoldyFolderPage : $FoldyBasePage {
-  bottom-widget: Stack bottom_stack {
+template $FoldyFolderPage: $FoldyBasePage {
+  can-select: true;
+
+  bottom-start-widget: Revealer delete_revealer {
+    reveal-child: true;
+    transition-type: crossfade;
+
+    Gtk.Button delete_button {
+      styles [
+        "circular",
+        "destructive-action",
+      ]
+
+      halign: center;
+      valign: center;
+      icon-name: "user-trash-symbolic";
+    }
+  };
+
+  bottom-center-widget: Stack bottom_stack {
+    transition-type: crossfade;
+
     StackPage {
       name: "delete-button";
-      child: Button delete_button {
+
+      child: Button add_apps_button {
         styles [
           "pill",
-          "destructive-action"
+          "suggested-action",
         ]
 
-        label: _("Remove folder");
+        label: _("Add apps");
       };
     }
 
     StackPage {
       name: "selection-mode";
+
       child: Button delete_selected_button {
         styles [
           "pill",
-          "destructive-action"
+          "destructive-action",
         ]
 
-        label: _("Remove selected from that folder");
+        label: _("Remove selected");
       };
+    }
+  };
+
+  bottom-end-widget: Revealer settings_revealer {
+    reveal-child: true;
+    transition-type: crossfade;
+
+    Button folder_settings_button {
+      styles [
+        "circular",
+        "flat",
+      ]
+
+      halign: center;
+      valign: center;
+      icon-name: "document-edit-symbolic";
     }
   };
 }

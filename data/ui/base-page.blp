@@ -24,6 +24,9 @@ template $FoldyBasePage: Adw.NavigationPage {
         };
 
         [end]
+        $FoldyMainMenuButton main_menu_button {}
+
+        [end]
         ToggleButton selection_button {
           styles [
             "flat"
@@ -32,12 +35,9 @@ template $FoldyBasePage: Adw.NavigationPage {
           icon-name: "selection-mode-symbolic";
           visible: false;
         }
-
-        [end]
-        $FoldyMainMenuButton main_menu_button {}
       }
 
-      Gtk.Revealer {
+      Gtk.Revealer search_revealer {
         reveal-child: bind search_button.active;
 
         Adw.Clamp {
@@ -58,9 +58,11 @@ template $FoldyBasePage: Adw.NavigationPage {
     content: Stack list_stack {
       StackPage {
         name: "has";
+
         child: ScrolledWindow {
           propagate-natural-height: true;
           hscrollbar-policy: never;
+          valign: end;
 
           Adw.Clamp {
             margin-bottom: 12;
@@ -83,6 +85,7 @@ template $FoldyBasePage: Adw.NavigationPage {
 
       StackPage {
         name: "has-not";
+
         child: Adw.StatusPage {
           vexpand: true;
           icon-name: "system-search-symbolic";
@@ -92,12 +95,28 @@ template $FoldyBasePage: Adw.NavigationPage {
     };
 
     [bottom]
-    Adw.Clamp bottom_clamp {
+    CenterBox {
       margin-bottom: 12;
       margin-end: 12;
       margin-start: 12;
       margin-top: 12;
-      maximum-size: 500;
+      shrink-center-last: true;
+
+      start-widget: Adw.Bin bottom_start {
+        halign: start;
+      };
+
+      center-widget: Adw.Clamp {
+        margin-end: 12;
+        margin-start: 12;
+        maximum-size: 500;
+
+        Adw.Bin bottom_center {}
+      };
+
+      end-widget: Adw.Bin bottom_end {
+        halign: end;
+      };
     }
   }
 }

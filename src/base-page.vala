@@ -16,7 +16,7 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/base-page.ui")]
-public abstract class Foldy.BasePage: Adw.NavigationPage {
+public abstract class Foldy.BasePage : Adw.NavigationPage {
 
     [GtkChild]
     unowned Gtk.ToggleButton search_button;
@@ -25,7 +25,7 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
     [GtkChild]
     unowned Adw.WindowTitle window_title;
     [GtkChild]
-    protected unowned Gtk.ToggleButton selection_button;
+    unowned Gtk.ToggleButton selection_button;
     [GtkChild]
     unowned MainMenuButton main_menu_button;
     [GtkChild]
@@ -33,16 +33,40 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
     [GtkChild]
     unowned Gtk.ListBox list_box;
     [GtkChild]
-    unowned Adw.Clamp bottom_clamp;
+    unowned Adw.Bin bottom_start;
+    [GtkChild]
+    unowned Adw.Bin bottom_center;
+    [GtkChild]
+    unowned Adw.Bin bottom_end;
+    [GtkChild]
+    unowned Gtk.Revealer search_revealer;
 
     public Adw.NavigationView nav_view { get; construct; }
 
-    public Gtk.Widget bottom_widget {
+    public Gtk.Widget bottom_start_widget {
         get {
-            return bottom_clamp.child;
+            return bottom_start.child;
         }
         set {
-            bottom_clamp.child = value;
+            bottom_start.child = value;
+        }
+    }
+
+    public Gtk.Widget bottom_center_widget {
+        get {
+            return bottom_center.child;
+        }
+        set {
+            bottom_center.child = value;
+        }
+    }
+
+    public Gtk.Widget bottom_end_widget {
+        get {
+            return bottom_end.child;
+        }
+        set {
+            bottom_end.child = value;
         }
     }
 
@@ -52,6 +76,10 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
         }
     }
 
+    public bool can_select { get; set; default = false; }
+
+    public bool selection_enabled { get; set; default = false; }
+
     public string page_title { get; set; }
 
     public string page_subtitle { get; set; }
@@ -60,6 +88,26 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
 
     construct {
         assert (nav_view != null);
+
+        this.bind_property (
+            "can-select",
+            selection_button,
+            "visible",
+            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE
+        );
+
+        this.bind_property (
+            "selection-enabled",
+            selection_button,
+            "active",
+            BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
+        );
+
+        search_revealer.notify["reveal-child"].connect (() => {
+            if (search_revealer.reveal_child) {
+                search_entry.focus (Gtk.DirectionType.DOWN);
+            }
+        });
 
         search_entry.search_changed.connect (() => {
             apply_filter ();
@@ -71,17 +119,10 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
             }
         });
 
-        nav_view.popped.connect ((page) => {
-            if (page != this) {
-                refresh ();
-            }
-        });
-
         list_box.set_filter_func ((row) => {
             if (filter (row, search_entry.text)) {
                 total_visible_rows += 1;
                 return true;
-
             } else {
                 return false;
             }
@@ -107,7 +148,6 @@ public abstract class Foldy.BasePage: Adw.NavigationPage {
 
         if (total_visible_rows == 0) {
             list_stack.visible_child_name = "has-not";
-
         } else {
             list_stack.visible_child_name = "has";
         }

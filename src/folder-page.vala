@@ -16,10 +16,24 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/folder-page.ui")]
-public sealed class Foldy.FolderPage: BasePage {
+public sealed class Foldy.FolderPage : BasePage {
 
     [GtkChild]
     unowned Gtk.Button delete_button;
+    [GtkChild]
+    unowned Gtk.Button delete_selected_button;
+    [GtkChild]
+    unowned Gtk.Stack bottom_stack;
+    [GtkChild]
+    unowned Gtk.Revealer delete_revealer;
+    [GtkChild]
+    unowned Gtk.Revealer settings_revealer;
+    [GtkChild]
+    unowned Gtk.Button folder_settings_button;
+    [GtkChild]
+    unowned Gtk.Button add_apps_button;
+
+    Array<AppRow> app_rows = new Array<AppRow> ();
 
     public string folder_id { get; construct; }
 
@@ -30,48 +44,107 @@ public sealed class Foldy.FolderPage: BasePage {
     }
 
     construct {
-        selection_button.visible = true;
+        bind_property (
+            "selection-enabled",
+            bottom_stack,
+            "visible-child-name",
+            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE,
+            (binding, srcval, ref trgval) => {
+                trgval.set_string (srcval.get_boolean () ? "selection-mode" : "delete-button");
+            }
+        );
 
-        page_title = get_folder_name (folder_id);
         page_subtitle = folder_id;
 
-        row_box.row_activated.connect ((row) => {
-            var app_row = (AppRow) row;
+        bind_property (
+            "selection-enabled",
+            delete_revealer,
+            "reveal-child",
+            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE | BindingFlags.INVERT_BOOLEAN
+        );
 
-            if (!(app_row.app_info.get_id () in get_folder_apps (folder_id))) {
-                refresh ();
-
-                application.show_message (_("Can't open folder settings"));
-
-                return;
-            }
-
-            //  SHOW INFO
-        });
+        bind_property (
+            "selection-enabled",
+            settings_revealer,
+            "reveal-child",
+            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE | BindingFlags.INVERT_BOOLEAN
+        );
 
         delete_button.clicked.connect (() => {
-            remove_folder (folder_id);
+            var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (get_folder_name (folder_id))), null);
 
-            nav_view.pop ();
+            dialog.add_response ("no", _("Cancel"));
+            dialog.add_response ("yes", _("Delete"));
+
+            dialog.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+
+            dialog.default_response = "no";
+            dialog.close_response = "no";
+
+            dialog.response.connect ((resp) => {
+                if (resp == "yes") {
+                    remove_folder (folder_id);
+                    nav_view.pop ();
+                }
+            });
+
+            dialog.present (this);
         });
 
-        settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        add_apps_button.clicked.connect (add_apps);
+
+        delete_selected_button.clicked.connect (() => {
+            remove_apps_from_folder (folder_id, get_selected_apps ());
+            selection_enabled = false;
+        });
+
+        folder_settings_button.clicked.connect (() => {
+            new EditFolderDialog (folder_id).present (this);
+        });
+
+        AppInfoMonitor.get ().changed.connect (refresh);
+
+        settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                           "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.changed.connect ((key) => {
             refresh ();
         });
 
-        unmap.connect (() => {
+        nav_view.popped.connect (() => {
             if (get_folder_apps (folder_id).length == 0) {
                 remove_folder (folder_id);
+                nav_view.pop_to_tag ("main");
             }
         });
+
+        if (get_folder_apps (folder_id).length == 0) {
+            Idle.add_once (add_apps);
+        }
+    }
+
+    void add_apps () {
+        nav_view.push (new AddAppsPage (nav_view, folder_id));
+    }
+
+    string[] get_selected_apps () {
+        var row_ids = new Array<string> ();
+
+        foreach (var row in app_rows.data) {
+            var app_row = (AppRow) row;
+
+            if (app_row.selected) {
+                row_ids.append_val (app_row.app_info.get_id ());
+            }
+        }
+
+        return row_ids.data;
     }
 
     protected override void update_list () {
+        page_title = get_folder_name (folder_id);
+
+        app_rows = new Array<AppRow> ();
         row_box.remove_all ();
 
         update_list_async.begin ();
@@ -83,13 +156,22 @@ public sealed class Foldy.FolderPage: BasePage {
 
         foreach (AppInfo app_info in app_infos) {
             if (app_info.get_id () in folder_apps) {
-                var app_row = new AppRow (folder_id, app_info);
+                var app_row = new AppRow (app_info);
 
-                selection_button.bind_property (
-                    "active",
-                    app_row, "selection-enabled",
-                    BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+                bind_property (
+                    "selection-enabled",
+                    app_row,
+                    "selection-enabled",
+                    BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
+                );
 
+                app_row.notify ["selected"].connect (() => {
+                    if (get_selected_apps ().length == 0) {
+                        selection_enabled = false;
+                    }
+                });
+
+                app_rows.append_val (app_row);
                 row_box.append (app_row);
 
                 Idle.add (update_list_async.callback);

@@ -16,4 +16,4 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/main-menu-button.ui")]
-public sealed class Foldy.MainMenuButton: Adw.Bin {}
+public sealed class Foldy.MainMenuButton : Adw.Bin {}

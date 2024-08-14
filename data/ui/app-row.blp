@@ -1,32 +1,27 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $FoldyAppRow : Adw.ActionRow {
+template $FoldyAppRow: Adw.ActionRow {
   activatable: true;
 
+  [prefix]
+  Image icon_image {
+    icon-size: large;
+    halign: fill;
+    valign: fill;
+  }
+
   [suffix]
-  Stack icon_stack {
+  Revealer check_revealer {
     transition-type: crossfade;
 
-    StackPage {
-      name: "icon";
-      child: Image icon_image {
-        icon-size: large;
-        halign: fill;
-        valign: fill;
-      };
-    }
+    CheckButton check_button {
+      styles [
+        "selection-mode"
+      ]
 
-    StackPage {
-      name: "check";
-      child: CheckButton check_button {
-        styles [
-          "selection-mode"
-        ]
-
-        halign: center;
-        valign: center;
-      };
+      halign: center;
+      valign: center;
     }
   }
 }

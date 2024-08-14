@@ -15,28 +15,28 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-namespace Foldy {
-    static Foldy.Application application;
-}
-
-public sealed class Foldy.Application: Adw.Application {
+public sealed class Foldy.Application : Adw.Application {
 
     const ActionEntry[] ACTION_ENTRIES = {
         { "quit", quit },
     };
 
+    static Foldy.Application instance;
+
     public Application () {
-        Object (
-            application_id: Config.APP_ID_DYN,
-            resource_base_path: "/io/github/Rirusha/Foldy/"
-        );
+        Object (application_id: Config.APP_ID_DYN,
+                resource_base_path: "/io/github/Rirusha/Foldy/");
     }
 
     construct {
-        application = this;
+        Foldy.Application.instance = this;
 
         add_action_entries (ACTION_ENTRIES, this);
         set_accels_for_action ("app.quit", { "<primary>q" });
+    }
+
+    public static new Foldy.Application get_default () {
+        return Foldy.Application.instance;
     }
 
     public void show_message (string message) {
@@ -52,7 +52,6 @@ public sealed class Foldy.Application: Adw.Application {
             var win = new Window (this);
 
             win.present ();
-
         } else {
             active_window.present ();
         }

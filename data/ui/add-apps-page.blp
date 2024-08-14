@@ -1,0 +1,16 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $FoldyAddAppsPage: $FoldyBasePage {
+  page-title: _("All applications");
+
+  bottom-center-widget: Button add_button {
+    styles [
+      "pill",
+      "suggested-action",
+    ]
+
+    sensitive: false;
+    label: _("Add selected applications");
+  };
+}

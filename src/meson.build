@@ -2,14 +2,13 @@ vapi_sources = files(
   'config.vapi',
 )
 
-foldy_sources = [
-  vapi_sources,
-  blueprints,
-  resources
-] + files(
+foldy_sources = [vapi_sources, blueprints, resources] + files(
+  'add-apps-page.vala',
+  'app-info-dialog.vala',
   'app-row.vala',
   'application.vala',
   'base-page.vala',
+  'edit-folder-dialog.vala',
   'folder-page.vala',
   'folder-row.vala',
   'folders-list-page.vala',
@@ -23,7 +22,7 @@ foldy_vala_args = [
   '--target-glib', '2.76',
   '--vapidir', meson.current_source_dir(),
   '--gresources', resource_files,
-  '--gresourcesdir=data/'
+  '--gresourcesdir=data/',
 ]
 
 foldy_c_args = [

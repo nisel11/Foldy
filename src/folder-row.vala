@@ -15,24 +15,9 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-public sealed class Foldy.FolderRow: Adw.ActionRow {
+public sealed class Foldy.FolderRow : Adw.ActionRow {
 
-    string _folder_id;
-    public string folder_id {
-        get {
-            return _folder_id;
-        }
-        construct {
-            _folder_id = value;
-
-            title = get_folder_name (value);
-            subtitle = value;
-
-            activatable = true;
-        }
-    }
-
-    public signal void settings_changed ();
+    public string folder_id { get; construct; }
 
     Settings settings;
 
@@ -41,13 +26,18 @@ public sealed class Foldy.FolderRow: Adw.ActionRow {
     }
 
     construct {
-        settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        refresh ();
+        subtitle = folder_id;
 
-        settings.changed.connect ((key) => {
-            settings_changed ();
-        });
+        activatable = true;
+
+        settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                           "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
+
+        settings.changed.connect (refresh);
+    }
+
+    void refresh () {
+        title = get_folder_name (folder_id);
     }
 }

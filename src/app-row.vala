@@ -16,16 +16,14 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/app-row.ui")]
-public sealed class Foldy.AppRow: Adw.ActionRow {
+public sealed class Foldy.AppRow : Adw.ActionRow {
 
     [GtkChild]
-    unowned Gtk.Stack icon_stack;
+    unowned Gtk.Revealer check_revealer;
     [GtkChild]
     unowned Gtk.Image icon_image;
     [GtkChild]
     unowned Gtk.CheckButton check_button;
-
-    public string folder_id { get; construct; }
 
     public AppInfo app_info { get; construct; }
 
@@ -37,48 +35,62 @@ public sealed class Foldy.AppRow: Adw.ActionRow {
         set {
             _selection_enabled = value;
 
-            if (value) {
-                icon_stack.visible_child_name = "check";
-
-            } else {
-                icon_stack.visible_child_name = "icon";
+            if (!value) {
+                selected = false;
             }
         }
     }
 
-    public AppRow (string folder_id, AppInfo app_info) {
-        Object (folder_id: folder_id, app_info: app_info);
+    public bool check_button_sensitive {
+        get {
+            return check_button.sensitive;
+        }
+        set {
+            check_button.sensitive = value;
+        }
+    }
+
+    public new bool selected { get; set; default = false; }
+
+    public AppRow (AppInfo app_info) {
+        Object (app_info: app_info);
     }
 
     construct {
         title = app_info.get_display_name ();
         subtitle = app_info.get_id ();
 
-        Icon icon = app_info.get_icon ();
+        icon_image.set_from_gicon (app_info.get_icon ());
 
-        if (icon is ThemedIcon) {
-            //  var icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-
-            //  new Gdk.Pixbuf.from_stream_async ();
-            //  icon_image.set_from_paintable ()
-            icon_image.set_from_icon_name (icon.to_string ());
-
-        } else if (icon is LoadableIcon) {
-            icon_image.set_from_file (icon.to_string ());
-
-        } else if (icon is EmblemedIcon) {
-            icon_image.set_from_icon_name (icon.to_string ());
-
-        } else {
-            warning ("Unknown icon format");
-        }
+        var lp = new Gtk.GestureLongPress ();
+        lp.pressed.connect (() => {
+            if (!selection_enabled) {
+                selection_enabled = true;
+                selected = true;
+            }
+        });
+        add_controller (lp);
 
         activated.connect (() => {
-            check_button.active = !check_button.active;
+            new AppInfoDialog (app_info).present (this);
         });
 
-        //  delete_button.clicked.connect (() => {
-        //      remove_app_from_folder (folder_id, app_id);
-        //  });
+        bind_property (
+            "selection-enabled",
+            check_revealer,
+            "reveal-child",
+            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE
+        );
+
+        bind_property (
+            "selected",
+            check_button,
+            "active",
+            BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
+        );
+
+        check_button.notify["active"].connect (() => {
+            selected = check_button.active;
+        });
     }
 }

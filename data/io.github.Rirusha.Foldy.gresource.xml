@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/io/github/Rirusha/Foldy/">
-    <file alias="gtk/help-overlay.ui" preprocess="xml-stripblanks">ui/help-overlay.ui</file>
     <file>style.css</file>
+    <file preprocess="xml-stripblanks">ui/add-apps-page.ui</file>
+    <file preprocess="xml-stripblanks">ui/app-info-dialog.ui</file>
     <file preprocess="xml-stripblanks">ui/app-row.ui</file>
     <file preprocess="xml-stripblanks">ui/base-page.ui</file>
+    <file preprocess="xml-stripblanks">ui/edit-folder-dialog.ui</file>
     <file preprocess="xml-stripblanks">ui/folder-page.ui</file>
     <file preprocess="xml-stripblanks">ui/folders-list-page.ui</file>
     <file preprocess="xml-stripblanks">ui/main-menu-button.ui</file>

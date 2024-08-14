@@ -20,19 +20,15 @@ namespace Foldy {
     // Folder name
 
     static string get_folder_name (string folder_id) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         return settings.get_string ("name");
     }
 
     static void set_folder_name (string folder_id, string folder_name) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.set_string ("name", folder_name);
     }
@@ -40,19 +36,15 @@ namespace Foldy {
     // Folder categories
 
     static string[] get_folder_categories (string folder_id) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         return settings.get_strv ("categories");
     }
 
     static void set_folder_categories (string folder_id, string[]? folder_categories) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.set_strv ("categories", folder_categories);
     }
@@ -60,50 +52,77 @@ namespace Foldy {
     // Folder translate
 
     static bool get_folder_translate (string folder_id) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         return settings.get_boolean ("translate");
     }
 
     static void set_folder_translate (string folder_id, bool folder_translate) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.set_boolean ("translate", folder_translate);
     }
 
-    // Folder apps   
+    // Folder apps
 
     static string[] get_folder_apps (string folder_id) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         return settings.get_strv ("apps");
     }
 
     static void set_folder_apps (string folder_id, string[]? new_apps) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.set_strv ("apps", new_apps);
     }
 
+    static void add_apps_to_folder (string folder_id, string[] add_apps) {
+        if (!folder_exists (folder_id)) {
+            create_folder_with_id (folder_id);
+        }
+
+        var current_apps = get_folder_apps (folder_id);
+
+        var builder = new StrvBuilder ();
+
+        builder.addv (current_apps);
+        foreach (var add_app in add_apps) {
+            builder.add (add_app);
+        }
+
+        set_folder_apps (folder_id, builder.end ());
+    }
+
     static void add_app_to_folder (string folder_id, string add_app) {
+        if (!folder_exists (folder_id)) {
+            create_folder_with_id (folder_id);
+        }
+
         var current_apps = get_folder_apps (folder_id);
 
         var builder = new StrvBuilder ();
 
         builder.addv (current_apps);
         builder.add (add_app);
+
+        set_folder_apps (folder_id, builder.end ());
+    }
+
+    static void remove_apps_from_folder (string folder_id, string[] rm_apps) {
+        var current_apps = get_folder_apps (folder_id);
+
+        var builder = new StrvBuilder ();
+
+        foreach (string app in current_apps) {
+            if (!(app in rm_apps)) {
+                builder.add (app);
+            }
+        }
 
         set_folder_apps (folder_id, builder.end ());
     }
@@ -125,19 +144,15 @@ namespace Foldy {
     // Folder exclude apps
 
     static string[] get_folder_excluded_apps (string folder_id) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         return settings.get_strv ("excluded-apps");
     }
 
     static void set_folder_excluded_apps (string folder_id, string[]? new_excluded_apps) {
-        var settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder",
-            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
-        );
+        var settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
+                                               "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.set_strv ("excluded-apps", new_excluded_apps);
     }
@@ -179,6 +194,10 @@ namespace Foldy {
         var settings = new Settings ("org.gnome.desktop.app-folders");
 
         settings.set_strv ("folder-children", new_folders);
+    }
+
+    static bool folder_exists (string folder_id) {
+        return folder_id in get_folders ();
     }
 
     static void create_folder_with_id (string folder_id) {

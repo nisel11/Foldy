@@ -16,7 +16,7 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/window.ui")]
-public sealed class Foldy.Window: Adw.ApplicationWindow {
+public sealed class Foldy.Window : Adw.ApplicationWindow {
 
     [GtkChild]
     unowned Adw.ToastOverlay toast_overlay;
@@ -24,7 +24,6 @@ public sealed class Foldy.Window: Adw.ApplicationWindow {
     unowned FoldersListPage folders_list_page;
 
     const ActionEntry[] ACTION_ENTRIES = {
-        { "preferences", on_preferences_action },
         { "about", on_about_action },
     };
 
@@ -44,10 +43,6 @@ public sealed class Foldy.Window: Adw.ApplicationWindow {
 
     public void show_message (string message) {
         toast_overlay.add_toast (new Adw.Toast (message));
-    }
-
-    void on_preferences_action () {
-        message ("Hello, stranger…");
     }
 
     void on_about_action () {
