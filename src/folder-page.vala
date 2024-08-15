@@ -107,7 +107,7 @@ public sealed class Foldy.FolderPage : BasePage {
         AppInfoMonitor.get ().changed.connect (refresh);
 
         settings = new Settings.with_path (
-            "org.gnome.desktop.app-folders.folder", 
+            "org.gnome.desktop.app-folders.folder",
             "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
         );
 
