@@ -30,7 +30,7 @@ public sealed class Foldy.AppInfoDialog : Adw.Dialog {
     unowned Gtk.Button launch_button;
 
     public AppInfo app_info { get; construct; }
-    
+
     public AppInfoDialog (AppInfo app_info) {
         Object (app_info: app_info);
     }
@@ -40,7 +40,7 @@ public sealed class Foldy.AppInfoDialog : Adw.Dialog {
         name_label.label = app_info.get_display_name ();
         id_label.label = app_info.get_id ();
         description_label.label = app_info.get_description ();
-        
+
         launch_button.clicked.connect (() => {
             try {
                 app_info.launch (null, null);

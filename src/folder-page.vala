@@ -71,7 +71,9 @@ public sealed class Foldy.FolderPage : BasePage {
         );
 
         delete_button.clicked.connect (() => {
-            var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (get_folder_name (folder_id))), null);
+            var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (
+                get_folder_name (folder_id)
+            )), null);
 
             dialog.add_response ("no", _("Cancel"));
             dialog.add_response ("yes", _("Delete"));
@@ -104,8 +106,10 @@ public sealed class Foldy.FolderPage : BasePage {
 
         AppInfoMonitor.get ().changed.connect (refresh);
 
-        settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
-                                           "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
+        settings = new Settings.with_path (
+            "org.gnome.desktop.app-folders.folder", 
+            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
+        );
 
         settings.changed.connect ((key) => {
             refresh ();
