@@ -55,11 +55,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # - name: Run indentation checker
-      #   run: python3 .checkers/indentation_checker.py 
+      - name: Update apt cache
+        run: apt-get update
 
-      # - name: Run empty lines checker
-      #   run: python3 .checkers/empty_lines_checker.py 
+      - name: Install python
+        run: apt-get install -y python3.12
+
+      - name: Run indentation checker
+        run: python3.12 ./checkers/indentation_checker.py .
+
+      - name: Run empty lines checker
+        run: python3.12 ./checkers/empty_lines_checker.py .
 
   test-build:
     name: Test Build
