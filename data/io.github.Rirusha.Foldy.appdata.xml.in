@@ -6,7 +6,7 @@
   <project_license>GPL-3.0-or-later</project_license>
   <description>
     <p>
-
+      Folder manager for mobile devices
     </p>
   </description>
   <recommends>
@@ -18,19 +18,23 @@
     <!-- Can be generated here https://hughsie.github.io/oars/generate.html -->
   </content_rating>
   <screenshots>
-
+    <screenshot type="default">
+      <image>https://github.com/alt-gnome-team/Foldy/blob/main/data/images/1-image.png?raw=true</image>
+    </screenshot>
+    <screenshot>
+      <image>https://github.com/alt-gnome-team/Foldy/blob/main/data/images/2-image.png?raw=true</image>
+    </screenshot>
   </screenshots>
   <summary>
-
+    Folder manager for mobile devices
   </summary>
   <launchable type="desktop-id">io.github.Rirusha.Foldy.desktop</launchable>
   <releases>
 
   </releases>
-  <url type="homepage"></url>
-  <url type="bugtracker"></url>
-  <url type="help"></url>
-  <developer_name>
-    Rirusha
-  </developer_name>
+  <url type="homepage">https://github.com/alt-gnome-team/Foldy</url>
+  <url type="bugtracker">https://github.com/alt-gnome-team/Foldy/issues</url>
+  <developer id="@rirusha@altlinux.org">
+    <name>Rirusha</name>
+  </developer>
 </component>
