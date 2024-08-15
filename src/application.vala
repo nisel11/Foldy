@@ -24,7 +24,7 @@ public sealed class Foldy.Application : Adw.Application {
     static Foldy.Application instance;
 
     public Application () {
-        Object (application_id: Config.APP_ID_DYN,
+        Object (application_id: Config.APP_ID,
                 resource_base_path: "/io/github/Rirusha/Foldy/");
     }
 

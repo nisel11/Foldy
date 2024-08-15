@@ -48,7 +48,7 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
     void on_about_action () {
         var about = new Adw.AboutDialog () {
             application_name = "Foldy",
-            application_icon = Config.APP_ID_DYN,
+            application_icon = Config.APP_ID,
             developer_name = "Rirusha",
             version = Config.VERSION,
             // Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
