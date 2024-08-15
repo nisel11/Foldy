@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the foldy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: foldy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-15 10:28+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: app name should be translated
+#: data/io.github.Rirusha.Foldy.appdata.xml.in:3
+#: data/io.github.Rirusha.Foldy.desktop.in:4 src/main.vala:23
+msgid "Foldy"
+msgstr ""
+
+#: data/io.github.Rirusha.Foldy.appdata.xml.in:33
+msgid "Rirusha"
+msgstr ""
+
+#: data/io.github.Rirusha.Foldy.desktop.in:5
+msgid "Folder manager for mobile devices"
+msgstr ""
+
+#. Translators: keep number of ';'
+#: data/io.github.Rirusha.Foldy.desktop.in:7
+msgid "folder"
+msgstr ""
+
+#: data/ui/add-apps-page.blp:5
+msgid "All applications"
+msgstr ""
+
+#: data/ui/add-apps-page.blp:14
+msgid "Add selected applications"
+msgstr ""
+
+#: data/ui/app-info-dialog.blp:9
+msgid "Application information"
+msgstr ""
+
+#. valign: end;
+#: data/ui/app-info-dialog.blp:76
+msgid "Launch"
+msgstr ""
+
+#: data/ui/base-page.blp:92
+msgid "Nothing to show"
+msgstr ""
+
+#: data/ui/edit-folder-dialog.blp:9
+msgid "Folder settings"
+msgstr ""
+
+#: data/ui/edit-folder-dialog.blp:33
+msgid "Folder name"
+msgstr ""
+
+#: data/ui/edit-folder-dialog.blp:37
+msgid "Folder categories"
+msgstr ""
+
+#: data/ui/edit-folder-dialog.blp:51
+msgid "Apply"
+msgstr ""
+
+#: data/ui/folder-page.blp:35
+msgid "Add apps"
+msgstr ""
+
+#: data/ui/folder-page.blp:48
+msgid "Remove selected"
+msgstr ""
+
+#: data/ui/folders-list-page.blp:13
+msgid "Create new folder"
+msgstr ""
+
+#: data/ui/main-menu-button.blp:8
+msgid "Main menu"
+msgstr ""
+
+#: data/ui/main-menu-button.blp:15
+msgid "_About Foldy"
+msgstr ""
+
+#: src/edit-folder-dialog.vala:48
+msgid "No categories"
+msgstr ""
+
+#: src/edit-folder-dialog.vala:60
+msgid "Name can't be empty"
+msgstr ""
+
+#: src/folder-page.vala:74
+#, c-format
+msgid "Are you want to delete folder '%s'?"
+msgstr ""
+
+#: src/folder-page.vala:78
+msgid "Cancel"
+msgstr ""
+
+#: src/folder-page.vala:79
+msgid "Delete"
+msgstr ""
+
+#: src/folders-list-page.vala:37
+msgid "Can't open folder settings"
+msgstr ""
+
+#: src/utils.vala:212
+msgid "Unnamed Folder"
+msgstr ""
+
+#. Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
+#: src/window.vala:55
+msgid "translator-credits"
+msgstr ""
