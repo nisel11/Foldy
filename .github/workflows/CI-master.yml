@@ -1,10 +1,10 @@
-name: CI master
+name: CI main
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   lint-vala:
