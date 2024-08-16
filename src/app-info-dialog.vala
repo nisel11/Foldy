@@ -49,5 +49,7 @@ public sealed class Foldy.AppInfoDialog : Adw.Dialog {
                 warning (e.message);
             }
         });
+
+        launch_button.visible = !(Config.APP_ID in app_info.get_id ());
     }
 }
