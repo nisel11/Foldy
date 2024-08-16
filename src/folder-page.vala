@@ -116,10 +116,12 @@ public sealed class Foldy.FolderPage : BasePage {
         });
 
         nav_view.popped.connect (() => {
-            if (get_folder_apps (folder_id).length == 0) {
-                remove_folder (folder_id);
-                nav_view.pop_to_tag ("main");
-            }
+            Idle.add_once (() => {
+                if (get_folder_apps (folder_id).length == 0) {
+                    remove_folder (folder_id);
+                    nav_view.pop_to_tag ("main");
+                }
+            });
         });
 
         if (get_folder_apps (folder_id).length == 0) {
