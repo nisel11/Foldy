@@ -63,10 +63,14 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
         icon_image.set_from_gicon (app_info.get_icon ());
 
         var lp = new Gtk.GestureLongPress ();
+        //  lp.delay_factor = 0.8;
         lp.pressed.connect (() => {
             if (!selection_enabled) {
                 selection_enabled = true;
                 selected = true;
+
+            } else {
+                selected = !selected;
             }
         });
         add_controller (lp);
@@ -79,7 +83,7 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
             "selection-enabled",
             check_revealer,
             "reveal-child",
-            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE
+            BindingFlags.DEFAULT
         );
 
         bind_property (
@@ -88,9 +92,5 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
             "active",
             BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
         );
-
-        check_button.notify["active"].connect (() => {
-            selected = check_button.active;
-        });
     }
 }
