@@ -27,7 +27,7 @@ public sealed class Foldy.FolderRow : Adw.ActionRow {
 
     construct {
         refresh ();
-        subtitle = folder_id;
+        subtitle = string.joinv (", ", get_folder_categories (folder_id));
 
         activatable = true;
 
