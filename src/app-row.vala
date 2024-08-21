@@ -64,7 +64,16 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
 
         var lp = new Gtk.GestureLongPress ();
         //  lp.delay_factor = 0.8;
-        lp.pressed.connect (() => {
+        lp.pressed.connect ((x, y) => {
+            Graphene.Rect rect;
+            compute_bounds (check_button, out rect);
+
+            if (x > rect.origin.x.abs () && x < rect.origin.x.abs () + rect.size.width &&
+                y > rect.origin.y.abs () && y < rect.origin.y.abs () + rect.size.height
+            ) {
+                return;
+            }
+
             if (!selection_enabled) {
                 selection_enabled = true;
                 selected = true;
