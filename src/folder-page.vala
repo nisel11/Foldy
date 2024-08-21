@@ -136,7 +136,7 @@ public sealed class Foldy.FolderPage : BasePage {
     string[] get_selected_apps () {
         var row_ids = new Array<string> ();
 
-        foreach (var row in app_rows.data) {
+        foreach (var row in app_rows) {
             var app_row = (AppRow) row;
 
             if (app_row.selected) {
