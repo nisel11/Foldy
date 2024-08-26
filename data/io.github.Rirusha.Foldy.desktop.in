@@ -8,5 +8,5 @@ Exec=foldy
 Icon=io.github.Rirusha.Foldy
 Terminal=false
 Type=Application
-Categories=GNOME;GTK;
+Categories=Utility;GNOME;GTK;
 StartupNotify=true
