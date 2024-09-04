@@ -50,7 +50,7 @@ public sealed class Foldy.FolderPage : BasePage {
             "visible-child-name",
             BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE,
             (binding, srcval, ref trgval) => {
-                trgval.set_string (srcval.get_boolean () ? "selection-mode" : "delete-button");
+                trgval.set_string (srcval.get_boolean () ? "selection-mode" : "default");
             }
         );
 
