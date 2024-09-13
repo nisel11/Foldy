@@ -65,6 +65,10 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
         var lp = new Gtk.GestureLongPress ();
         //  lp.delay_factor = 0.8;
         lp.pressed.connect ((x, y) => {
+            if (!check_button_sensitive) {
+                return;
+            }
+
             Graphene.Rect rect;
             compute_bounds (check_button, out rect);
 
