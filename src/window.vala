@@ -50,6 +50,9 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
             application_name = "Foldy",
             application_icon = Config.APP_ID,
             developer_name = "Rirusha",
+            artists = {
+                "Arseniy Nechkin <krisgeniusnos@gmail.com>",
+            },
             version = Config.VERSION,
             // Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
             translator_credits = _("translator-credits"),
