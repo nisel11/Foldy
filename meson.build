@@ -1,7 +1,7 @@
 project(
   'foldy',
   ['c', 'vala'],
-  version: '0.1.5.beta',
+  version: '0.1.6.beta',
   meson_version: '>= 0.62.0',
   license: 'GPL-3.0-or-later',
 )
@@ -9,8 +9,8 @@ project(
 i18n = import('i18n')
 gnome = import('gnome')
 
-gtk = dependency('gtk4', version: '>= 4.14')
-libadwaita = dependency('libadwaita-1', version: '>= 1.5')
+gtk = dependency('gtk4', version: '>= 4.15')
+libadwaita = dependency('libadwaita-1', version: '>= 1.6')
 
 app_id = 'io.github.Rirusha.Foldy'
 
