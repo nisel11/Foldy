@@ -29,6 +29,7 @@ template $FoldyBasePage: Adw.NavigationPage {
             "flat"
           ]
 
+          visible: bind template.can-select inverted;
           icon-name: "help-about-symbolic";
           action-name: "win.about";
         }
@@ -40,7 +41,8 @@ template $FoldyBasePage: Adw.NavigationPage {
           ]
 
           icon-name: "selection-mode-symbolic";
-          visible: false;
+          visible: bind template.can-select;
+          active: bind template.selection-enabled bidirectional;
         }
       }
 

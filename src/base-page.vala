@@ -87,20 +87,6 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
     construct {
         assert (nav_view != null);
 
-        this.bind_property (
-            "can-select",
-            selection_button,
-            "visible",
-            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE
-        );
-
-        this.bind_property (
-            "selection-enabled",
-            selection_button,
-            "active",
-            BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
-        );
-
         search_revealer.notify["reveal-child"].connect (() => {
             if (search_revealer.reveal_child) {
                 Foldy.Application.get_default ().active_window.focus_widget = search_entry;
