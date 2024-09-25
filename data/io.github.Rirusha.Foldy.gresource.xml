@@ -9,7 +9,6 @@
     <file preprocess="xml-stripblanks">ui/edit-folder-dialog.ui</file>
     <file preprocess="xml-stripblanks">ui/folder-page.ui</file>
     <file preprocess="xml-stripblanks">ui/folders-list-page.ui</file>
-    <file preprocess="xml-stripblanks">ui/main-menu-button.ui</file>
     <file preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
 </gresources>

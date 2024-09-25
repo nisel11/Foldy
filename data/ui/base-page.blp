@@ -24,7 +24,14 @@ template $FoldyBasePage: Adw.NavigationPage {
         };
 
         [end]
-        $FoldyMainMenuButton main_menu_button {}
+        Button {
+          styles [
+            "flat"
+          ]
+
+          icon-name: "help-about-symbolic";
+          action-name: "win.about";
+        }
 
         [end]
         ToggleButton selection_button {

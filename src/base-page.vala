@@ -27,8 +27,6 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
     [GtkChild]
     unowned Gtk.ToggleButton selection_button;
     [GtkChild]
-    unowned MainMenuButton main_menu_button;
-    [GtkChild]
     unowned Gtk.Stack list_stack;
     [GtkChild]
     unowned Gtk.ListBox list_box;
