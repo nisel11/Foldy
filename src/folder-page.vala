@@ -162,7 +162,7 @@ public sealed class Foldy.FolderPage : BasePage {
 
         foreach (AppInfo app_info in app_infos) {
             if (app_info.get_id () in folder_apps) {
-                var app_row = new AppRow (app_info);
+                var app_row = new AppRowRemove (app_info);
 
                 bind_property (
                     "selection-enabled",

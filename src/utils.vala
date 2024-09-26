@@ -17,6 +17,11 @@
 
 namespace Foldy {
 
+    public enum ActionType {
+        ADD,
+        REMOVE
+    }
+
     // Folder name
 
     static string get_folder_name (string folder_id) {

@@ -16,14 +16,14 @@
  */
 
 [GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/app-row.ui")]
-public sealed class Foldy.AppRow : Adw.ActionRow {
+public abstract class Foldy.AppRow : Adw.ActionRow {
 
-    [GtkChild]
-    unowned Gtk.Revealer check_revealer;
     [GtkChild]
     unowned Gtk.Image icon_image;
     [GtkChild]
-    unowned Gtk.CheckButton check_button;
+    unowned Gtk.Revealer action_image_revealer;
+    [GtkChild]
+    unowned Gtk.Image action_image;
 
     public AppInfo app_info { get; construct; }
 
@@ -41,19 +41,27 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
         }
     }
 
-    public bool check_button_sensitive {
+    public abstract string selected_style_class { get; }
+
+    bool _selected = false;
+    public new bool selected {
         get {
-            return check_button.sensitive;
+            return _selected;
         }
         set {
-            check_button.sensitive = value;
+            _selected = value;
+
+            if (selected) {
+                add_css_class (selected_style_class);
+                action_image.icon_name = "check-symbolic";
+                action_image.remove_css_class ("dim-label");
+
+            } else {
+                remove_css_class (selected_style_class);
+                action_image.icon_name = "uncheck-symbolic";
+                action_image.add_css_class ("dim-label");
+            }
         }
-    }
-
-    public new bool selected { get; set; default = false; }
-
-    public AppRow (AppInfo app_info) {
-        Object (app_info: app_info);
     }
 
     construct {
@@ -65,16 +73,7 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
         var lp = new Gtk.GestureLongPress ();
         //  lp.delay_factor = 0.8;
         lp.pressed.connect ((x, y) => {
-            if (!check_button_sensitive) {
-                return;
-            }
-
-            Graphene.Rect rect;
-            compute_bounds (check_button, out rect);
-
-            if (x > rect.origin.x.abs () && x < rect.origin.x.abs () + rect.size.width &&
-                y > rect.origin.y.abs () && y < rect.origin.y.abs () + rect.size.height
-            ) {
+            if (!sensitive) {
                 return;
             }
 
@@ -89,21 +88,14 @@ public sealed class Foldy.AppRow : Adw.ActionRow {
         add_controller (lp);
 
         activated.connect (() => {
-            new AppInfoDialog (app_info).present (this);
+            if (selection_enabled) {
+                if (sensitive) {
+                    selected = !selected;
+                }
+
+            } else {
+                new AppInfoDialog (app_info).present (this);
+            }
         });
-
-        bind_property (
-            "selection-enabled",
-            check_revealer,
-            "reveal-child",
-            BindingFlags.DEFAULT
-        );
-
-        bind_property (
-            "selected",
-            check_button,
-            "active",
-            BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE
-        );
     }
 }

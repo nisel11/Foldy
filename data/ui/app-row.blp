@@ -12,16 +12,16 @@ template $FoldyAppRow: Adw.ActionRow {
   }
 
   [suffix]
-  Revealer check_revealer {
+  Revealer action_image_revealer {
     transition-type: crossfade;
+    reveal-child: bind template.selection-enabled;
 
-    CheckButton check_button {
+    Image action_image {
       styles [
-        "selection-mode"
+        "dim-label"
       ]
 
-      halign: center;
-      valign: center;
+      icon-name: "uncheck-symbolic";
     }
   }
 }

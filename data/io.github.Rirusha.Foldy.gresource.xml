@@ -11,4 +11,8 @@
     <file preprocess="xml-stripblanks">ui/folders-list-page.ui</file>
     <file preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
+  <gresource prefix="/io/github/Rirusha/Foldy/icons/scalable/actions/">
+    <file alias="check-symbolic.svg">assets/icons/check-symbolic.svg</file>
+    <file alias="uncheck-symbolic.svg">assets/icons/uncheck-symbolic.svg</file>
+  </gresource>
 </gresources>

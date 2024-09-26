@@ -68,7 +68,7 @@ public sealed class Foldy.AddAppsPage : BasePage {
 
         foreach (AppInfo app_info in app_infos) {
             if (app_info.should_show ()) {
-                var app_row = new AppRow (app_info);
+                var app_row = new AppRowAdd (app_info);
 
                 bind_property (
                     "selection-enabled",
@@ -86,7 +86,7 @@ public sealed class Foldy.AddAppsPage : BasePage {
 
                 if (app_info.get_id () in folder_apps) {
                     app_row.selected = true;
-                    app_row.check_button_sensitive = false;
+                    app_row.sensitive = false;
                 }
 
                 Idle.add (update_list_async.callback);
