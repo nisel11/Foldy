@@ -9,7 +9,6 @@ project(
 i18n = import('i18n')
 gnome = import('gnome')
 
-gtk = dependency('gtk4', version: '>= 4.15')
 libadwaita = dependency('libadwaita-1', version: '>= 1.6')
 
 app_id = 'io.github.Rirusha.Foldy'
@@ -26,7 +25,9 @@ conf.set_quoted('GNOMELOCALEDIR', join_paths(get_option('prefix'), get_option('l
 
 subdir('data')
 
-foldy_dependencies = [gtk, libadwaita]
+foldy_dependencies = [
+  libadwaita
+]
 
 configure_file(output: 'config.h', configuration: conf)
 config_h_dir = include_directories('.')
