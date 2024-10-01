@@ -18,21 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: app name should be translated
-#: data/io.github.Rirusha.Foldy.appdata.xml.in:3
-#: data/io.github.Rirusha.Foldy.desktop.in:4 src/main.vala:23
+#: data/space.rirusha.Foldy.appdata.xml.in:3
+#: data/space.rirusha.Foldy.desktop.in:4 src/main.vala:23
 msgid "Foldy"
 msgstr ""
 
-#: data/io.github.Rirusha.Foldy.appdata.xml.in:33
+#: data/space.rirusha.Foldy.appdata.xml.in:33
 msgid "Rirusha"
 msgstr ""
 
-#: data/io.github.Rirusha.Foldy.desktop.in:5
+#: data/space.rirusha.Foldy.desktop.in:5
 msgid "Folder manager for mobile devices"
 msgstr ""
 
 #. Translators: keep number of ';'
-#: data/io.github.Rirusha.Foldy.desktop.in:7
+#: data/space.rirusha.Foldy.desktop.in:7
 msgid "folder"
 msgstr ""
 

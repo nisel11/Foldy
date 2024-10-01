@@ -11,10 +11,11 @@ gnome = import('gnome')
 
 libadwaita = dependency('libadwaita-1', version: '>= 1.6')
 
-app_id = 'io.github.Rirusha.Foldy'
+app_id = 'space.rirusha.Foldy'
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)
+conf.set10('IS_DEVEL', get_option('is_devel'))
 conf.set_quoted('G_LOG_DOMAIN', app_id)
 conf.set_quoted('PACKAGE_NAME', meson.project_name())
 conf.set_quoted('PACKAGE_VERSION', meson.project_version())

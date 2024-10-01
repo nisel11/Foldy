@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/edit-folder-dialog.ui")]
+[GtkTemplate (ui = "/space/rirusha/Foldy/ui/edit-folder-dialog.ui")]
 public sealed class Foldy.EditFolderDialog : Adw.Dialog {
 
     [GtkChild]

@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/app-info-dialog.ui")]
+[GtkTemplate (ui = "/space/rirusha/Foldy/ui/app-info-dialog.ui")]
 public sealed class Foldy.AppInfoDialog : Adw.Dialog {
 
     [GtkChild]

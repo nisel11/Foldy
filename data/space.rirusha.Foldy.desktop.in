@@ -5,7 +5,7 @@ Comment=Folder manager for mobile devices
 # Translators: keep number of ';'
 Keywords=folder
 Exec=foldy
-Icon=io.github.Rirusha.Foldy
+Icon=space.rirusha.Foldy
 Terminal=false
 Type=Application
 Categories=Utility;GNOME;GTK;

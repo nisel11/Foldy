@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/base-page.ui")]
+[GtkTemplate (ui = "/space/rirusha/Foldy/ui/base-page.ui")]
 public abstract class Foldy.BasePage : Adw.NavigationPage {
 
     [GtkChild]

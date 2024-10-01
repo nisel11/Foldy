@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/app-row.ui")]
+[GtkTemplate (ui = "/space/rirusha/Foldy/ui/app-row.ui")]
 public abstract class Foldy.AppRow : Adw.ActionRow {
 
     [GtkChild]

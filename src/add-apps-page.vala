@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-[GtkTemplate (ui = "/io/github/Rirusha/Foldy/ui/add-apps-page.ui")]
+[GtkTemplate (ui = "/space/rirusha/Foldy/ui/add-apps-page.ui")]
 public sealed class Foldy.AddAppsPage : BasePage {
 
     [GtkChild]

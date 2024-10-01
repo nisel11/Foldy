@@ -25,7 +25,7 @@ public sealed class Foldy.Application : Adw.Application {
 
     public Application () {
         Object (application_id: Config.APP_ID,
-                resource_base_path: "/io/github/Rirusha/Foldy/");
+                resource_base_path: "/space/rirusha/Foldy/");
     }
 
     construct {

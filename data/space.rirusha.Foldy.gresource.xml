@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/io/github/Rirusha/Foldy/">
+  <gresource prefix="/space/rirusha/Foldy/">
     <file>style.css</file>
     <file preprocess="xml-stripblanks">ui/add-apps-page.ui</file>
     <file preprocess="xml-stripblanks">ui/app-info-dialog.ui</file>
@@ -11,7 +11,7 @@
     <file preprocess="xml-stripblanks">ui/folders-list-page.ui</file>
     <file preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
-  <gresource prefix="/io/github/Rirusha/Foldy/icons/scalable/actions/">
+  <gresource prefix="/space/rirusha/Foldy/icons/scalable/actions/">
     <file alias="check-symbolic.svg">assets/icons/check-symbolic.svg</file>
     <file alias="uncheck-symbolic.svg">assets/icons/uncheck-symbolic.svg</file>
   </gresource>
