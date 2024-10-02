@@ -52,16 +52,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Update apt cache
         run: apt-get update
 
       - name: Install python
-        run: apt-get install -y python3.12 git
-
-      - name: Init vala-checkers
-        run: git submodule init vala-checkers
+        run: apt-get install -y python3.12
 
       - name: Run indentation checker
         run: python3.12 ./vala-checkers/indentation_checker.py .
