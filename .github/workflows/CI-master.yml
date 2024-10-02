@@ -44,7 +44,7 @@ jobs:
 
   checkers:
     name: Run checkers
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint-blp
 
     container:
@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: recursive
 
