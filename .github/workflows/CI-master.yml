@@ -44,15 +44,20 @@ jobs:
 
   checkers:
     name: Run checkers
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     needs: lint-blp
 
     container:
       image: ubuntu:latest
 
     steps:
+      - name: Install git on container
+        run: |
+          apt-get update
+          apt-get install -y git
+          
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
