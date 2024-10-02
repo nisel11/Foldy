@@ -43,4 +43,4 @@ modules:
       - -Dis_devel=true
     sources:
       - type: dir
-        path: ../../../
+        path: ../../
