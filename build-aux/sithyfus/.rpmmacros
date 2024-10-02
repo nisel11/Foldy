@@ -1,0 +1,4 @@
+%_topdir        %homedir/RPM
+
+%packager       Vladimir Vaskov <rirusha@altlinux.org>
+%_gpg_name      rirusha@altlinux.org
