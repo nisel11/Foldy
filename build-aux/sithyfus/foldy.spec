@@ -2,8 +2,8 @@
 %define app_id space.rirusha.Foldy
 
 Name: foldy
-Version: 1.0.0
-Release: alt1
+Version:
+Release:
 
 Summary: Folder manager for mobile devices
 License: GPL-3.0-or-later
@@ -45,16 +45,3 @@ export AS_VALIDATE_NONET="true"
 %_datadir/glib-2.0/schemas/%app_id.gschema.xml
 %_desktopdir/%app_id.desktop
 %_iconsdir/hicolor/*/apps/*.svg
-
-%changelog
-* Tue Oct 1 2024 Vladimir Vaskov <rirusha@altlinux.org> 1.0.0-alt1
-- 1.0.0
-
-* Thu Sep 26 2024 Vladimir Vaskov <rirusha@altlinux.org> 0.2.0.beta-alt1
-- 0.2.0.beta
-
-* Wed Sep 25 2024 Vladimir Vaskov <rirusha@altlinux.org> 0.1.7.beta-alt1
-- 0.1.7.beta
-
-* Wed Sep 25 2024 Vladimir Vaskov <rirusha@altlinux.org> 0.1.6.beta-alt1
-- initial build
