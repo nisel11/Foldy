@@ -15,30 +15,33 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+using Foldy.Folder;
+
 [GtkTemplate (ui = "/space/rirusha/Foldy/ui/add-apps-page.ui")]
 public sealed class Foldy.AddAppsPage : BasePage {
 
     [GtkChild]
-    unowned Gtk.Button add_button;
+    unowned Adw.ButtonRow add_button;
 
     Array<AppRow> app_rows = new Array<AppRow> ();
 
     public string folder_id { get; construct; }
+
+    public signal void done ();
 
     public AddAppsPage (Adw.NavigationView nav_view, string folder_id) {
         Object (nav_view: nav_view, folder_id: folder_id);
     }
 
     construct {
-        AppInfoMonitor.get ().changed.connect (refresh);
-
-        add_button.clicked.connect (() => {
-            add_apps_to_folder (folder_id, get_selected_apps ());
-            selection_enabled = false;
-            nav_view.pop ();
-        });
-
         selection_enabled = true;
+    }
+
+    [GtkCallback]
+    void add_selected_apps () {
+        add_folder_apps (folder_id, get_selected_apps ());
+        selection_enabled = false;
+        done ();
     }
 
     string[] get_selected_apps () {
@@ -63,7 +66,7 @@ public sealed class Foldy.AddAppsPage : BasePage {
     }
 
     async void update_list_async () {
-        var app_infos = AppInfo.get_all ();
+        var app_infos = get_unfolder_apps ();
         var folder_apps = get_folder_apps (folder_id);
 
         foreach (AppInfo app_info in app_infos) {
@@ -92,6 +95,19 @@ public sealed class Foldy.AddAppsPage : BasePage {
                 Idle.add (update_list_async.callback);
                 yield;
             }
+        }
+    }
+
+    protected override void row_activated (Gtk.ListBoxRow row) {
+        var app_row = (AppRow) row;
+
+        if (app_row.selection_enabled) {
+            if (app_row.sensitive) {
+                app_row.selected = !app_row.selected;
+            }
+
+        } else {
+            new AppInfoDialog (app_row.app_info).present (this);
         }
     }
 

@@ -15,11 +15,10 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+using Foldy.Folder;
+
 [GtkTemplate (ui = "/space/rirusha/Foldy/ui/folders-list-page.ui")]
 public sealed class Foldy.FoldersListPage : BasePage {
-
-    [GtkChild]
-    unowned Gtk.Button create_new_button;
 
     Settings settings;
 
@@ -28,31 +27,65 @@ public sealed class Foldy.FoldersListPage : BasePage {
     }
 
     construct {
-        row_box.row_activated.connect ((row) => {
-            var folder_row = (FolderRow) row;
-
-            if (!(folder_row.folder_id in get_folders ())) {
-                refresh ();
-
-                Foldy.Application.get_default ().show_message (_("Can't open folder settings"));
-
-                return;
-            }
-
-            nav_view.push (new FolderPage (nav_view, folder_row.folder_id));
-        });
-
-        create_new_button.clicked.connect (() => {
-            string new_folder_id = create_folder ();
-
-            nav_view.push (new FolderPage (nav_view, new_folder_id));
-        });
-
         settings = new Settings ("org.gnome.desktop.app-folders");
 
         settings.changed["folder-children"].connect (() => {
             Idle.add_once (refresh);
         });
+    }
+
+    protected override void row_activated (Gtk.ListBoxRow row) {
+        var folder_row = (FolderRow) row;
+
+        if (!(folder_row.folder_id in get_folders ())) {
+            refresh ();
+
+            Foldy.Application.get_default ().show_message (_("Can't open folder settings"));
+
+            return;
+        }
+
+        nav_view.push (new FolderPage (nav_view, folder_row.folder_id));
+    }
+
+    [GtkCallback]
+    async void create_new_button_clicked () {
+        
+
+        string new_folder_id = create_folder (null);
+
+        var add_apps_page = new AddAppsPage (nav_view, new_folder_id);
+
+        ulong handler_id = nav_view.popped.connect ((page) => {
+            if (page == add_apps_page) {
+                add_apps_page.done ();
+            }
+        });
+
+        ulong handler_id2 = add_apps_page.done.connect (() => {
+            if (get_folder_apps (new_folder_id).length == 0) {
+                remove_folder (new_folder_id);
+                Idle.add (create_new_button_clicked.callback);
+
+            } else {
+                var folder_page = new FolderPage (nav_view, new_folder_id);
+                folder_page.shown.connect (() => {
+                    nav_view.replace ({
+                        this,
+                        folder_page
+                    });
+                    Idle.add (create_new_button_clicked.callback);
+                });
+                nav_view.push (folder_page);
+            }
+        });
+
+        nav_view.push (add_apps_page);
+
+        yield;
+
+        nav_view.disconnect (handler_id);
+        add_apps_page.disconnect (handler_id2);
     }
 
     protected override void update_list () {

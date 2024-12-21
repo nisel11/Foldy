@@ -15,6 +15,8 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+using Foldy.Folder;
+
 public sealed class Foldy.FolderRow : Adw.ActionRow {
 
     public string folder_id { get; construct; }

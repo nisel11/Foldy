@@ -23,8 +23,6 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
     [GtkChild]
     unowned Gtk.SearchEntry search_entry;
     [GtkChild]
-    unowned Adw.WindowTitle window_title;
-    [GtkChild]
     unowned Gtk.ToggleButton selection_button;
     [GtkChild]
     unowned Gtk.Stack list_stack;
@@ -78,14 +76,28 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
 
     public bool selection_enabled { get; set; default = false; }
 
-    public string page_title { get; set; }
-
-    public string page_subtitle { get; set; }
-
     uint32 total_visible_rows = 0;
 
     construct {
+        AppInfoMonitor.get ().changed.connect (refresh);
+
         assert (nav_view != null);
+
+        showing.connect (() => {
+            can_pop = false;
+        });
+
+        shown.connect (() => {
+            can_pop = true;
+        });
+
+        hiding.connect (() => {
+            can_pop = false;
+        });
+
+        hidden.connect (() => {
+            can_pop = true;
+        });
 
         search_revealer.notify["reveal-child"].connect (() => {
             if (search_revealer.reveal_child) {
@@ -124,6 +136,9 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
     }
 
     protected abstract void update_list ();
+
+    [GtkCallback]
+    protected abstract void row_activated (Gtk.ListBoxRow row);
 
     void apply_filter () {
         total_visible_rows = 0;

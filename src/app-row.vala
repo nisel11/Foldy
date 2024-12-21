@@ -86,16 +86,5 @@ public abstract class Foldy.AppRow : Adw.ActionRow {
             }
         });
         add_controller (lp);
-
-        activated.connect (() => {
-            if (selection_enabled) {
-                if (sensitive) {
-                    selected = !selected;
-                }
-
-            } else {
-                new AppInfoDialog (app_info).present (this);
-            }
-        });
     }
 }

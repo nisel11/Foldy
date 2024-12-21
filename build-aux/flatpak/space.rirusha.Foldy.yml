@@ -3,7 +3,7 @@ runtime: org.gnome.Platform
 runtime-version: 'master'
 sdk: org.gnome.Sdk
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.vala
+  - org.freedesktop.Sdk.Extension.vala-nightly
 command: foldy
 finish-args:
   - --share=network
@@ -36,6 +36,13 @@ modules:
         url: https://gitlab.gnome.org/jwestman/blueprint-compiler
         tag: v0.14.0
         commit: 8e10fcf8692108b9d4ab78f41086c5d7773ef864
+  - name: libfoldy
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://github.com/alt-gnome/libfoldy.git
+        tag: v1.6
+        commit: 6f9c80c7d7f12f13e811eddc08539ff2b81058f4
   - name: foldy
     buildsystem: meson
     builddir: true

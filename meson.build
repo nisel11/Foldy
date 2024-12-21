@@ -9,7 +9,9 @@ project(
 i18n = import('i18n')
 gnome = import('gnome')
 
-libadwaita = dependency('libadwaita-1', version: '>= 1.6')
+libadwaita_dep = dependency('libadwaita-1', version: '>= 1.6')
+gee_dep = dependency('gee-0.8')
+libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6')
 
 app_id = 'space.rirusha.Foldy'
 
@@ -27,7 +29,9 @@ conf.set_quoted('GNOMELOCALEDIR', join_paths(get_option('prefix'), get_option('l
 subdir('data')
 
 foldy_dependencies = [
-  libadwaita
+  libadwaita_dep,
+  gee_dep,
+  libfoldy_dep,
 ]
 
 configure_file(output: 'config.h', configuration: conf)

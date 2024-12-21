@@ -15,6 +15,8 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+using Foldy.Folder;
+
 [GtkTemplate (ui = "/space/rirusha/Foldy/ui/edit-folder-dialog.ui")]
 public sealed class Foldy.EditFolderDialog : Adw.Dialog {
 
@@ -25,7 +27,7 @@ public sealed class Foldy.EditFolderDialog : Adw.Dialog {
     [GtkChild]
     unowned Adw.ExpanderRow folder_categories_expander;
     [GtkChild]
-    unowned Gtk.Button apply_button;
+    unowned Adw.ButtonRow apply_button;
 
     public string folder_id { get; construct; }
 
@@ -47,12 +49,13 @@ public sealed class Foldy.EditFolderDialog : Adw.Dialog {
             folder_categories_expander.sensitive = false;
             folder_categories_expander.subtitle = _("No categories");
         }
+    }
 
-        apply_button.clicked.connect (() => {
-            if (apply_changed ()) {
-                close ();
-            }
-        });
+    [GtkCallback]
+    void on_apply_button_activate () {
+        if (apply_changed ()) {
+            close ();
+        }
     }
 
     bool apply_changed () {

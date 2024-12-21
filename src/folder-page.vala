@@ -15,13 +15,11 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+using Foldy.Folder;
+
 [GtkTemplate (ui = "/space/rirusha/Foldy/ui/folder-page.ui")]
 public sealed class Foldy.FolderPage : BasePage {
 
-    [GtkChild]
-    unowned Gtk.Button delete_button;
-    [GtkChild]
-    unowned Gtk.Button delete_selected_button;
     [GtkChild]
     unowned Gtk.Stack bottom_stack;
     [GtkChild]
@@ -30,8 +28,6 @@ public sealed class Foldy.FolderPage : BasePage {
     unowned Gtk.Revealer settings_revealer;
     [GtkChild]
     unowned Gtk.Button folder_settings_button;
-    [GtkChild]
-    unowned Gtk.Button add_apps_button;
 
     Array<AppRow> app_rows = new Array<AppRow> ();
 
@@ -54,8 +50,6 @@ public sealed class Foldy.FolderPage : BasePage {
             }
         );
 
-        page_subtitle = folder_id;
-
         bind_property (
             "selection-enabled",
             delete_revealer,
@@ -70,41 +64,9 @@ public sealed class Foldy.FolderPage : BasePage {
             BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE | BindingFlags.INVERT_BOOLEAN
         );
 
-        delete_button.clicked.connect (() => {
-            var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (
-                get_folder_name (folder_id)
-            )), null);
-
-            dialog.add_response ("no", _("Cancel"));
-            dialog.add_response ("yes", _("Delete"));
-
-            dialog.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-
-            dialog.default_response = "no";
-            dialog.close_response = "no";
-
-            dialog.response.connect ((resp) => {
-                if (resp == "yes") {
-                    remove_folder (folder_id);
-                    nav_view.pop ();
-                }
-            });
-
-            dialog.present (this);
-        });
-
-        add_apps_button.clicked.connect (add_apps);
-
-        delete_selected_button.clicked.connect (() => {
-            remove_apps_from_folder (folder_id, get_selected_apps ());
-            selection_enabled = false;
-        });
-
         folder_settings_button.clicked.connect (() => {
             new EditFolderDialog (folder_id).present (this);
         });
-
-        AppInfoMonitor.get ().changed.connect (refresh);
 
         settings = new Settings.with_path (
             "org.gnome.desktop.app-folders.folder",
@@ -129,6 +91,50 @@ public sealed class Foldy.FolderPage : BasePage {
         }
     }
 
+    [GtkCallback]
+    void delete_folder () {
+        var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (
+            get_folder_name (folder_id)
+        )), null);
+
+        dialog.add_response ("no", _("Cancel"));
+        dialog.add_response ("yes", _("Delete"));
+
+        dialog.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+
+        dialog.default_response = "no";
+        dialog.close_response = "no";
+
+        dialog.response.connect ((resp) => {
+            if (resp == "yes") {
+                remove_folder (folder_id);
+                nav_view.pop ();
+            }
+        });
+
+        dialog.present (this);
+    }
+
+    protected override void row_activated (Gtk.ListBoxRow row) {
+        var app_row = (AppRow) row;
+
+        if (app_row.selection_enabled) {
+            if (app_row.sensitive) {
+                app_row.selected = !app_row.selected;
+            }
+
+        } else {
+            new AppInfoDialog (app_row.app_info).present (this);
+        }
+    }
+
+    [GtkCallback]
+    void delete_selected_apps () {
+        remove_folder_apps (folder_id, get_selected_apps ());
+        selection_enabled = false;
+    }
+
+    [GtkCallback]
     void add_apps () {
         nav_view.push (new AddAppsPage (nav_view, folder_id));
     }
@@ -148,7 +154,7 @@ public sealed class Foldy.FolderPage : BasePage {
     }
 
     protected override void update_list () {
-        page_title = get_folder_name (folder_id);
+        title = _("Folder '%s'").printf (get_folder_name (folder_id));
 
         app_rows = new Array<AppRow> ();
         row_box.remove_all ();

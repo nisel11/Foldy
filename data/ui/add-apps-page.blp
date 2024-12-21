@@ -2,15 +2,24 @@ using Gtk 4.0;
 using Adw 1;
 
 template $FoldyAddAppsPage: $FoldyBasePage {
-  page-title: _("All applications");
+  title: _("Applications without folder");
 
-  bottom-center-widget: Button add_button {
+  bottom-center-widget: ListBox {
     styles [
-      "pill",
-      "suggested-action",
+      "boxed-list"
     ]
 
-    sensitive: false;
-    label: _("Add selected applications");
+    selection-mode: none;
+
+    Adw.ButtonRow add_button {
+      styles [
+        "suggested-action",
+      ]
+
+      sensitive: false;
+      title: _("Add selected applications");
+      
+      activated => $add_selected_apps();
+    }
   };
 }

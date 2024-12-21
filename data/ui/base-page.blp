@@ -2,11 +2,11 @@ using Gtk 4.0;
 using Adw 1;
 
 template $FoldyBasePage: Adw.NavigationPage {
-  title: "title";
+  title: "none";
 
   Adw.ToolbarView toolbar_view {
     top-bar-style: raised;
-    bottom-bar-style: raised;
+    bottom-bar-style: flat;
 
     [top]
     Box {
@@ -17,11 +17,6 @@ template $FoldyBasePage: Adw.NavigationPage {
         ToggleButton search_button {
           icon-name: "system-search-symbolic";
         }
-
-        title-widget: Adw.WindowTitle window_title {
-          title: bind template.page-title;
-          subtitle: bind template.page-subtitle;
-        };
 
         [end]
         Button {
@@ -87,6 +82,8 @@ template $FoldyBasePage: Adw.NavigationPage {
 
               valign: start;
               selection-mode: none;
+
+              row-activated => $row_activated();
             }
           }
         };
@@ -98,7 +95,7 @@ template $FoldyBasePage: Adw.NavigationPage {
         child: Adw.StatusPage {
           vexpand: true;
           icon-name: "system-search-symbolic";
-          title: _("Nothing to show");
+          title: _("There is nothing to show");
         };
       }
     };
@@ -113,18 +110,21 @@ template $FoldyBasePage: Adw.NavigationPage {
 
       start-widget: Adw.Bin bottom_start {
         halign: start;
+        hexpand: false;
       };
 
       center-widget: Adw.Clamp {
         margin-end: 12;
         margin-start: 12;
         maximum-size: 500;
+        hexpand: true;
 
         Adw.Bin bottom_center {}
       };
 
       end-widget: Adw.Bin bottom_end {
         halign: end;
+        hexpand: false;
       };
     }
   }

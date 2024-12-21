@@ -36,19 +36,16 @@ template $FoldyEditFolderDialog: Adw.Dialog {
             Adw.ExpanderRow folder_categories_expander {
               title: _("Folder categories");
             }
-          }
 
-          Button apply_button {
-            styles [
-              "pill",
-              "suggested-action",
-            ]
+            Adw.ButtonRow apply_button {
+              styles [
+                "suggested-action",
+              ]
 
-            hexpand: false;
-            vexpand: true;
-            halign: center;
-            valign: end;
-            label: _("Apply");
+              title: _("Apply");
+
+              activated => $on_apply_button_activate();
+            }
           }
         }
       }

@@ -18,6 +18,8 @@ template $FoldyFolderPage: $FoldyBasePage {
       halign: center;
       valign: center;
       icon-name: "user-trash-symbolic";
+
+      clicked => $delete_folder();
     }
   };
 
@@ -27,26 +29,44 @@ template $FoldyFolderPage: $FoldyBasePage {
     StackPage {
       name: "default";
 
-      child: Button add_apps_button {
+      child: ListBox {
         styles [
-          "pill",
-          "suggested-action",
+          "boxed-list"
         ]
 
-        label: _("Add apps");
+        selection-mode: none;
+
+        Adw.ButtonRow add_apps_button {
+          styles [
+            "suggested-action",
+          ]
+
+          title: _("Add apps");
+
+          activated => $add_apps();
+        }
       };
     }
 
     StackPage {
       name: "selection-mode";
 
-      child: Button delete_selected_button {
+      child: ListBox {
         styles [
-          "pill",
-          "destructive-action",
+          "boxed-list"
         ]
 
-        label: _("Remove selected");
+        selection-mode: none;
+
+        Adw.ButtonRow delete_selected_button {
+          styles [
+            "destructive-action",
+          ]
+
+          title: _("Remove selected");
+
+          activated => $delete_selected_apps();
+        }
       };
     }
   };
