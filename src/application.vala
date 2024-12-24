@@ -23,6 +23,8 @@ public sealed class Foldy.Application : Adw.Application {
 
     static Foldy.Application instance;
 
+    FoldyD.FoldersWatcher watcher;
+
     public Application () {
         Object (application_id: Config.APP_ID,
                 resource_base_path: "/space/rirusha/Foldy/");
@@ -33,6 +35,9 @@ public sealed class Foldy.Application : Adw.Application {
 
         add_action_entries (ACTION_ENTRIES, this);
         set_accels_for_action ("app.quit", { "<primary>q" });
+
+        watcher = new FoldyD.FoldersWatcher ();
+        watcher.run ();
     }
 
     public static new Foldy.Application get_default () {

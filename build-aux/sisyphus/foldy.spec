@@ -1,5 +1,5 @@
 %define _unpackaged_files_terminate_build 1
-%define app_id space.rirusha.Foldy
+%define app_id org.altlinux.Foldy
 
 Name: foldy
 Version:

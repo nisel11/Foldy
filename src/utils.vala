@@ -97,4 +97,18 @@ namespace Foldy {
 
         return categories;
     }
+
+    string[] get_app_ids_by_category (string category) {
+        var app_ids = new Array<string> ();
+
+        foreach (AppInfo app_info in AppInfo.get_all ()) {
+            string app_id = app_info.get_id ();
+
+            if (category in get_categories_by_app_id (app_id)) {
+                app_ids.append_val (app_id);
+            }
+        }
+
+        return app_ids.data;
+    }
 }

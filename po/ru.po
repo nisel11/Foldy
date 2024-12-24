@@ -19,21 +19,21 @@ msgstr ""
 "X-Generator: Poedit 3.4.4\n"
 
 #. Translators: app name should be translated
-#: data/space.rirusha.Foldy.appdata.xml.in:3
-#: data/space.rirusha.Foldy.desktop.in:4 src/main.vala:23
+#: data/org.altlinux.Foldy.appdata.xml.in:3
+#: data/org.altlinux.Foldy.desktop.in:4 src/main.vala:23
 msgid "Foldy"
 msgstr "Foldy"
 
-#: data/space.rirusha.Foldy.appdata.xml.in:33
+#: data/org.altlinux.Foldy.appdata.xml.in:33
 msgid "Rirusha"
 msgstr "Rirusha"
 
-#: data/space.rirusha.Foldy.desktop.in:5
+#: data/org.altlinux.Foldy.desktop.in:5
 msgid "Folder manager for mobile devices"
 msgstr ""
 
 #. Translators: keep number of ';'
-#: data/space.rirusha.Foldy.desktop.in:7
+#: data/org.altlinux.Foldy.desktop.in:7
 msgid "folder"
 msgstr ""
 

@@ -53,7 +53,7 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
         var about = new Adw.AboutDialog () {
             application_name = "Foldy",
             application_icon = Config.APP_ID,
-            developer_name = "Vladimir Vaskov",
+            developer_name = "ALT Linux Team",
             artists = {
                 "Arseniy Nechkin <krisgeniusnos@gmail.com>",
             },
@@ -61,7 +61,7 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
             // Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
             translator_credits = _("translator-credits"),
             license_type = Gtk.License.GPL_3_0,
-            copyright = "© 2024 Vladimir Vaskov",
+            copyright = "© 2024 ALT Linux Team",
             release_notes_version = Config.VERSION
         };
 

@@ -58,6 +58,15 @@ public sealed class Foldy.FoldersListPage : BasePage {
     }
 
     async void start_create_folder (string new_folder_id) {
+        Idle.add (start_create_folder.callback, Priority.LOW);
+        yield;
+
+        if (get_folder_apps (new_folder_id).length > 0) {
+            var folder_page = new FolderPage (nav_view, new_folder_id);
+            nav_view.push (folder_page);
+            return;
+        }
+
         var add_apps_page = new AddAppsPage (nav_view, new_folder_id);
 
         ulong handler_id = nav_view.popped.connect ((page) => {

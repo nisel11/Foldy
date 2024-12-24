@@ -1,4 +1,4 @@
-id: space.rirusha.Foldy
+id: org.altlinux.Foldy
 runtime: org.gnome.Platform
 runtime-version: 'master'
 sdk: org.gnome.Sdk

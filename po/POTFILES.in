@@ -1,5 +1,5 @@
-data/space.rirusha.Foldy.appdata.xml.in
-data/space.rirusha.Foldy.desktop.in
+data/org.altlinux.Foldy.appdata.xml.in
+data/org.altlinux.Foldy.desktop.in
 data/ui/add-apps-page.blp
 data/ui/app-info-dialog.blp
 data/ui/base-page.blp

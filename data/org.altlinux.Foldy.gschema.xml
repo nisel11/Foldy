@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="foldy">
 
-	<schema id="space.rirusha.Foldy" path="/space/rirusha/Foldy/">
+	<schema id="org.altlinux.Foldy" path="/space/rirusha/Foldy/">
 
 		<key name="window-width" type="i">
 			<default>600</default>

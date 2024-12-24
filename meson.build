@@ -14,7 +14,7 @@ gio_dep = dependency('gio-unix-2.0', version: '>= ' + '2.76')
 gee_dep = dependency('gee-0.8')
 libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6', fallback : ['libfoldy-1', 'lib_dep'])
 
-app_id = 'space.rirusha.Foldy'
+app_id = 'org.altlinux.Foldy'
 
 conf = configuration_data()
 conf.set_quoted('APP_ID', app_id)

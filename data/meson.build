@@ -43,6 +43,18 @@ if compile_schemas.found()
   )
 endif
 
+dbusconf = configuration_data()
+dbusconf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
+dbusconf.set('name', meson.project_name())
+configure_file(
+  input: '@0@.service.in'.format(app_id),
+  output: '@0@.service'.format(app_id),
+  configuration: dbusconf,
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'dbus-1', 'services'),
+)
+
+
 blueprints = custom_target(
   'blueprints',
   input: files(

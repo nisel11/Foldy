@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <name>Foldy</name>
-  <id>space.rirusha.Foldy.desktop</id>
+  <id>org.altlinux.Foldy.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <description>
@@ -28,13 +28,13 @@
   <summary>
     Folder manager for mobile devices
   </summary>
-  <launchable type="desktop-id">space.rirusha.Foldy.desktop</launchable>
+  <launchable type="desktop-id">org.altlinux.Foldy.desktop</launchable>
   <releases>
 
   </releases>
   <url type="homepage">https://github.com/alt-gnome-team/Foldy</url>
   <url type="bugtracker">https://github.com/alt-gnome-team/Foldy/issues</url>
-  <developer id="space.rirusha">
+  <developer id="org.altlinux">
     <name>Vladimir Vaskov</name>
   </developer>
 </component>
