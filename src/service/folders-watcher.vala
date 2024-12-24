@@ -60,5 +60,7 @@ public sealed class Foldy.FoldyD.FoldersWatcher : Object {
 
     public void run () {
         folders_settings.changed["folder-children"].connect (folders_changed);
+
+        message ("Service successfuly started");
     }
 }

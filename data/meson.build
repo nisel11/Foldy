@@ -44,8 +44,9 @@ if compile_schemas.found()
 endif
 
 dbusconf = configuration_data()
-dbusconf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
-dbusconf.set('name', meson.project_name())
+dbusconf.set('BINDIR', join_paths(get_option('prefix'), get_option('bindir')))
+dbusconf.set('NAME', meson.project_name())
+dbusconf.set('APP_ID', app_id)
 configure_file(
   input: '@0@.service.in'.format(app_id),
   output: '@0@.service'.format(app_id),
