@@ -1,16 +1,4 @@
 {
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
-        "**/.hg/store/**": true,
-        "**/node_modules/*/**": true,
-        ".flatpak/**": true,
-        "_build/**": true
-    },
-    "vala.languageServerPath": "${workspaceFolder}/.flatpak/vala-language-server.sh",
-    "mesonbuild.mesonPath": "${workspaceFolder}/.flatpak/meson.sh",
     "C_Cpp.default.compileCommands": "/home/rirusha/Projects/Foldy/_build/compile_commands.json",
-    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
-    "mesonbuild.configureOnOpen": false,
-    "mesonbuild.buildFolder": "_build"
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild"
 }

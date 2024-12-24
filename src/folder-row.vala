@@ -28,18 +28,17 @@ public sealed class Foldy.FolderRow : Adw.ActionRow {
     }
 
     construct {
-        refresh ();
-        subtitle = string.joinv (", ", get_folder_categories (folder_id));
-
         activatable = true;
 
         settings = new Settings.with_path ("org.gnome.desktop.app-folders.folder",
                                            "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id));
 
         settings.changed.connect (refresh);
+        refresh ();
     }
 
     void refresh () {
         title = get_folder_name (folder_id);
+        subtitle = string.joinv (", ", get_folder_categories (folder_id));
     }
 }

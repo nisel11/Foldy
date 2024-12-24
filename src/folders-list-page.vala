@@ -50,10 +50,14 @@ public sealed class Foldy.FoldersListPage : BasePage {
 
     [GtkCallback]
     async void create_new_button_clicked () {
-        
+        var dialog = new FolderDialog.create ();
+        dialog.applyed.connect ((folder_id) => {
+            start_create_folder.begin (folder_id);
+        });
+        dialog.present (this);
+    }
 
-        string new_folder_id = create_folder (null);
-
+    async void start_create_folder (string new_folder_id) {
         var add_apps_page = new AddAppsPage (nav_view, new_folder_id);
 
         ulong handler_id = nav_view.popped.connect ((page) => {
@@ -65,7 +69,7 @@ public sealed class Foldy.FoldersListPage : BasePage {
         ulong handler_id2 = add_apps_page.done.connect (() => {
             if (get_folder_apps (new_folder_id).length == 0) {
                 remove_folder (new_folder_id);
-                Idle.add (create_new_button_clicked.callback);
+                Idle.add (start_create_folder.callback);
 
             } else {
                 var folder_page = new FolderPage (nav_view, new_folder_id);
@@ -74,7 +78,7 @@ public sealed class Foldy.FoldersListPage : BasePage {
                         this,
                         folder_page
                     });
-                    Idle.add (create_new_button_clicked.callback);
+                    Idle.add (start_create_folder.callback);
                 });
                 nav_view.push (folder_page);
             }

@@ -65,7 +65,7 @@ public sealed class Foldy.FolderPage : BasePage {
         );
 
         folder_settings_button.clicked.connect (() => {
-            new EditFolderDialog (folder_id).present (this);
+            new FolderDialog.edit (folder_id, get_folder_name (folder_id)).present (this);
         });
 
         settings = new Settings.with_path (

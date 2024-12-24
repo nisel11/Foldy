@@ -45,15 +45,56 @@ namespace Foldy {
         return result_app_infos.to_array ();
     }
 
-    public string[] get_installed_categories () {
+    public string[] get_installed_categories (string? exclude_folder_id) {
         var app_infos = AppInfo.get_all ();
 
         var categiries = new Gee.HashSet<string> ();
 
         foreach (var app_info in app_infos) {
-            categiries.add_all_array (app_info.get_categories ());
+            categiries.add_all (get_categories_by_app_id (app_info.get_id ()));
+        }
+
+        categiries.remove_all (get_using_categories ());
+
+        if (exclude_folder_id != null) {
+            categiries.add_all_array (get_folder_categories (exclude_folder_id));
         }
 
         return categiries.to_array ();
+    }
+
+    Gee.HashSet<string> get_using_categories () {
+        var result = new Gee.HashSet<string> ();
+
+        foreach (var folder_id in get_folders ()) {
+            result.add_all_array (get_folder_categories (folder_id));
+        }
+
+        return result;
+    }
+
+    Gee.ArrayList<string> get_categories_by_app_id (string app_id) {
+        var categories = new Gee.ArrayList<string> ();
+
+        var desktop = new DesktopAppInfo (app_id);
+        string? categories_string = desktop.get_categories ();
+
+        if (categories_string == null) {
+            return categories;
+        }
+
+        if (categories_string.length == 0) {
+            return categories;
+        }
+
+        var raw_categories = categories_string.split (";");
+
+        foreach (var raw_category in raw_categories) {
+            if (raw_category.length > 0) {
+                categories.add (raw_category);
+            }
+        }
+
+        return categories;
     }
 }

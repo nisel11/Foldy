@@ -10,8 +10,9 @@ i18n = import('i18n')
 gnome = import('gnome')
 
 libadwaita_dep = dependency('libadwaita-1', version: '>= 1.6')
+gio_dep = dependency('gio-unix-2.0', version: '>= ' + '2.76')
 gee_dep = dependency('gee-0.8')
-libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6')
+libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6', fallback : ['libfoldy-1', 'lib_dep'])
 
 app_id = 'space.rirusha.Foldy'
 
@@ -32,6 +33,7 @@ foldy_dependencies = [
   libadwaita_dep,
   gee_dep,
   libfoldy_dep,
+  gio_dep,
 ]
 
 configure_file(output: 'config.h', configuration: conf)
