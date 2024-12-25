@@ -68,7 +68,12 @@ public abstract class Foldy.AppRow : Adw.ActionRow {
         title = app_info.get_display_name ();
         subtitle = app_info.get_id ();
 
-        icon_image.set_from_gicon (app_info.get_icon ());
+        icon_image.set_from_paintable (
+            IconsCache.Manager.get_default ().get_paintable_by_gicon (
+                app_info.get_icon (),
+                32
+            )
+        );
 
         var lp = new Gtk.GestureLongPress ();
         //  lp.delay_factor = 0.8;
