@@ -1,0 +1,4 @@
+echo 'Linter:' && io.elementary.vala-lint -d . -c vala-lint.conf
+echo 'Empty lines:' && python3 ${workspaceFolder}/vala-checkers/empty_lines_checker.py .
+echo 'Indentation:' && python3 ${workspaceFolder}/vala-checkers/indentation_checker.py .
+blueprint-compiler format -s 2 data/ui/*.blp
