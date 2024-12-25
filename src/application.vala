@@ -21,27 +21,30 @@ public sealed class Foldy.Application : Adw.Application {
         { "quit", quit },
     };
 
-    static Foldy.Application instance;
-
     FoldyD.FoldersWatcher watcher;
 
     public Application () {
-        Object (application_id: Config.APP_ID,
-                resource_base_path: "/space/rirusha/Foldy/");
+        Object (
+            application_id: Config.APP_ID,
+            resource_base_path: "/space/rirusha/Foldy/",
+            flags: ApplicationFlags.DEFAULT_FLAGS
+        );
     }
 
     construct {
-        Foldy.Application.instance = this;
-
         add_action_entries (ACTION_ENTRIES, this);
         set_accels_for_action ("app.quit", { "<primary>q" });
-
-        watcher = new FoldyD.FoldersWatcher ();
-        watcher.run ();
     }
 
     public static new Foldy.Application get_default () {
-        return Foldy.Application.instance;
+        return (Foldy.Application) GLib.Application.get_default ();
+    }
+
+    public override bool dbus_register (DBusConnection connection, string object_path) {
+        watcher = new FoldyD.FoldersWatcher ();
+        watcher.run ();
+
+        return true;
     }
 
     public void show_message (string message) {
