@@ -15,7 +15,7 @@ gee_dep = dependency('gee-0.8')
 libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6', fallback : ['libfoldy-1', 'lib_dep'])
 libicons_cache_dep = dependency(
   'libicons-cache-gtk4-1',
-  version: '>= 1.3',
+  version: '>= 1.4',
   default_options: ['gtk_target_version=gtk4'],
   fallback : ['libicons-cache-1', 'lib_dep']
 )
