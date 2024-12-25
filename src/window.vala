@@ -48,7 +48,7 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
 
  s
 
-
+s
     }
 
     public void show_message (string message) {
