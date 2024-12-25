@@ -13,12 +13,6 @@ libadwaita_dep = dependency('libadwaita-1', version: '>= 1.6')
 gio_dep = dependency('gio-unix-2.0', version: '>= ' + '2.76')
 gee_dep = dependency('gee-0.8')
 libfoldy_dep = dependency('libfoldy-1', version: '>= 1.6', fallback : ['libfoldy-1', 'lib_dep'])
-libicons_cache_dep = dependency(
-  'libicons-cache-gtk4-1',
-  version: '>= 1.4',
-  default_options: ['gtk_target_version=gtk4'],
-  fallback : ['libicons-cache-1', 'lib_dep']
-)
 
 app_id = 'org.altlinux.Foldy'
 
@@ -40,7 +34,6 @@ foldy_dependencies = [
   gee_dep,
   libfoldy_dep,
   gio_dep,
-  libicons_cache_dep,
 ]
 
 configure_file(output: 'config.h', configuration: conf)

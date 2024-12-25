@@ -40,12 +40,6 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
         settings.bind ("window-height", this, "default-height", SettingsBindFlags.DEFAULT);
         settings.bind ("window-maximized", this, "maximized", SettingsBindFlags.DEFAULT);
 
-        IconsCache.Manager.init (
-            32,
-            this.get_scale_factor (),
-            "image-missing-symbolic"
-        );
-
         if (Config.IS_DEVEL == true) {
             add_css_class ("devel");
         }
