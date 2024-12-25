@@ -10,14 +10,13 @@ template $FoldyFoldersListPage: $FoldyBasePage {
     ]
 
     selection-mode: none;
-    
+
     Adw.ButtonRow create_new_button {
       styles [
         "suggested-action"
       ]
 
       title: _("Create new folder");
-
       activated => $create_new_button_clicked();
     }
   };

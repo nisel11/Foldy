@@ -18,7 +18,6 @@ template $FoldyFolderPage: $FoldyBasePage {
       halign: center;
       valign: center;
       icon-name: "user-trash-symbolic";
-
       clicked => $delete_folder();
     }
   };
@@ -42,7 +41,6 @@ template $FoldyFolderPage: $FoldyBasePage {
           ]
 
           title: _("Add apps");
-
           activated => $add_apps();
         }
       };
@@ -64,7 +62,6 @@ template $FoldyFolderPage: $FoldyBasePage {
           ]
 
           title: _("Remove selected");
-
           activated => $delete_selected_apps();
         }
       };

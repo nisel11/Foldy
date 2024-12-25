@@ -80,7 +80,6 @@ template $FoldyFolderDialog: Adw.Dialog {
             ]
 
             title: bind template.apply-button-title;
-
             activated => $on_apply_button_activate();
           }
         }
@@ -100,8 +99,7 @@ template $FoldyFolderDialog: Adw.Dialog {
           hexpand: false;
           valign: center;
           icon-name: "go-top-symbolic";
-
-          clicked => $go_top_button_clicked ();
+          clicked => $go_top_button_clicked();
         }
       };
     }
