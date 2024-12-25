@@ -43,12 +43,6 @@ public sealed class Foldy.Window : Adw.ApplicationWindow {
         if (Config.IS_DEVEL == true) {
             add_css_class ("devel");
         }
-
-        
-
- s
-
-s
     }
 
     public void show_message (string message) {
