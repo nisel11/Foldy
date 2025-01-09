@@ -44,7 +44,7 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
         model.changed.connect (update_data);
         notify["expanded"].connect (update_subtitle);
 
-        update_data.begin (update_subtitle);
+        update_data ();
     }
 
     void clear_expander_row () {
@@ -62,7 +62,7 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
         }
     }
 
-    async void update_data () {
+    void update_data () {
         clear_expander_row ();
 
         var folder_categories = new Gee.HashSet<string> ();
@@ -80,9 +80,12 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
                 row.selected = true;
             }
 
-            Idle.add (update_data.callback, Priority.LOW);
-            yield;
+            print ("|");
         }
+
+        print ("\n");
+
+        update_subtitle ();
     }
 
     public string[] get_selected_categories () {

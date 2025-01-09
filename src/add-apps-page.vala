@@ -23,7 +23,7 @@ public sealed class Foldy.AddAppsPage : BasePage {
     [GtkChild]
     unowned Adw.ButtonRow add_button;
 
-    Array<AppRow> app_rows = new Array<AppRow> ();
+    Gee.ArrayList<AppRow> app_rows = new Gee.ArrayList<AppRow> ();
 
     public string folder_id { get; construct; }
 
@@ -47,7 +47,7 @@ public sealed class Foldy.AddAppsPage : BasePage {
     string[] get_selected_apps () {
         var row_ids = new Array<string> ();
 
-        foreach (var row in app_rows.data) {
+        foreach (var row in app_rows) {
             var app_row = (AppRow) row;
 
             if (app_row.selected) {
@@ -59,13 +59,9 @@ public sealed class Foldy.AddAppsPage : BasePage {
     }
 
     protected override void update_list () {
-        app_rows = new Array<AppRow> ();
+        app_rows.clear ();
         row_box.remove_all ();
 
-        update_list_async.begin ();
-    }
-
-    async void update_list_async () {
         var app_infos = get_unfolder_apps ();
         var folder_apps = get_folder_apps (folder_id);
 
@@ -84,16 +80,13 @@ public sealed class Foldy.AddAppsPage : BasePage {
                     add_button.sensitive = get_selected_apps ().length != 0;
                 });
 
-                app_rows.append_val (app_row);
+                app_rows.add (app_row);
                 row_box.append (app_row);
 
                 if (app_info.get_id () in folder_apps) {
                     app_row.selected = true;
                     app_row.sensitive = false;
                 }
-
-                Idle.add (update_list_async.callback);
-                yield;
             }
         }
     }

@@ -29,9 +29,7 @@ public sealed class Foldy.FoldersListPage : BasePage {
     construct {
         settings = new Settings ("org.gnome.desktop.app-folders");
 
-        settings.changed["folder-children"].connect (() => {
-            Idle.add_once (refresh);
-        });
+        settings.changed["folder-children"].connect (refresh);
     }
 
     protected override void row_activated (Gtk.ListBoxRow row) {

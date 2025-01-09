@@ -128,11 +128,8 @@ public abstract class Foldy.BasePage : Adw.NavigationPage {
     }
 
     public void refresh () {
-        Idle.add_once (() => {
-            update_list ();
-
-            apply_filter ();
-        });
+        update_list ();
+        apply_filter ();
     }
 
     protected abstract void update_list ();

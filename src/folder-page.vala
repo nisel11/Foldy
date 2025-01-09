@@ -29,11 +29,13 @@ public sealed class Foldy.FolderPage : BasePage {
     [GtkChild]
     unowned Gtk.Button folder_settings_button;
 
-    Array<AppRow> app_rows = new Array<AppRow> ();
+    Gee.ArrayList<AppRow> app_rows = new Gee.ArrayList<AppRow> ();
 
     public string folder_id { get; construct; }
 
     Settings settings;
+
+    Gee.ArrayList<Cancellable> update_cancellables = new Gee.ArrayList<Cancellable> ();
 
     public FolderPage (Adw.NavigationView nav_view, string folder_id) {
         Object (nav_view: nav_view, folder_id: folder_id);
@@ -73,17 +75,14 @@ public sealed class Foldy.FolderPage : BasePage {
             "/org/gnome/desktop/app-folders/folders/%s/".printf (folder_id)
         );
 
-        settings.changed.connect ((key) => {
-            refresh ();
-        });
+        settings.changed.connect (refresh);
 
-        nav_view.popped.connect (() => {
-            Idle.add_once (() => {
+        nav_view.popped.connect ((page) => {
+            if (page == this) {
                 if (get_folder_apps (folder_id).length == 0) {
                     remove_folder (folder_id);
-                    nav_view.pop_to_tag ("main");
                 }
-            });
+            }
         });
     }
 
@@ -160,13 +159,9 @@ public sealed class Foldy.FolderPage : BasePage {
     protected override void update_list () {
         title = _("Folder '%s'").printf (get_folder_name (folder_id));
 
-        app_rows = new Array<AppRow> ();
+        app_rows.clear ();
         row_box.remove_all ();
 
-        update_list_async.begin ();
-    }
-
-    async void update_list_async () {
         var app_infos = AppInfo.get_all ();
         var folder_apps = get_folder_apps (folder_id);
 
@@ -187,11 +182,8 @@ public sealed class Foldy.FolderPage : BasePage {
                     }
                 });
 
-                app_rows.append_val (app_row);
+                app_rows.add (app_row);
                 row_box.append (app_row);
-
-                Idle.add (update_list_async.callback);
-                yield;
             }
         }
     }
