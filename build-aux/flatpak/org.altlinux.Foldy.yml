@@ -36,21 +36,12 @@ modules:
         url: https://gitlab.gnome.org/jwestman/blueprint-compiler
         tag: v0.14.0
         commit: 8e10fcf8692108b9d4ab78f41086c5d7773ef864
-  - name: libicons-cache
-    buildsystem: meson
-    config-opts: 
-      - -Dgtk_target_version=gtk4
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/Rirusha/libicons-cache.git
-        tag: v1.4
-        commit: cedd7f012359d98bb2dea412f0a41745c8737fec
   - name: libfoldy
     buildsystem: meson
     sources:
       - type: git
         url: https://github.com/alt-gnome/libfoldy.git
-        tag: v1.6
+        tag: v1.8
         commit: 6f9c80c7d7f12f13e811eddc08539ff2b81058f4
   - name: foldy
     buildsystem: meson
