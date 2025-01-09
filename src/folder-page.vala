@@ -166,7 +166,7 @@ public sealed class Foldy.FolderPage : BasePage {
         var folder_apps = get_folder_apps (folder_id);
 
         foreach (AppInfo app_info in app_infos) {
-            if (app_info.get_id () in folder_apps) {
+            if (app_info.get_id () in folder_apps && app_info.should_show ()) {
                 var app_row = new AppRowRemove (app_info);
 
                 bind_property (
