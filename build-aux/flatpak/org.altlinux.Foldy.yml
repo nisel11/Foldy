@@ -42,7 +42,7 @@ modules:
       - type: git
         url: https://github.com/alt-gnome/libfoldy.git
         tag: v1.8
-        commit: 6f9c80c7d7f12f13e811eddc08539ff2b81058f4
+        commit: 41c50916791df175d7e25ea92c3ef5071c868a20
   - name: foldy
     buildsystem: meson
     builddir: true
