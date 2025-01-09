@@ -3,8 +3,6 @@ vapi_sources = files(
 )
 
 foldy_sources = [vapi_sources, blueprints, resources] + files(
-  'service/folder-data.vala',
-  'service/folders-watcher.vala',
   'add-apps-page.vala',
   'app-info-dialog.vala',
   'app-row-add.vala',

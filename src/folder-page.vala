@@ -85,10 +85,6 @@ public sealed class Foldy.FolderPage : BasePage {
                 }
             });
         });
-
-        if (get_folder_apps (folder_id).length == 0) {
-            Idle.add_once (add_apps);
-        }
     }
 
     [GtkCallback]
@@ -135,8 +131,16 @@ public sealed class Foldy.FolderPage : BasePage {
     }
 
     [GtkCallback]
-    void add_apps () {
-        nav_view.push (new AddAppsPage (nav_view, folder_id));
+    async void add_apps () {
+        var add_apps_page = new AddAppsPage (nav_view, folder_id);
+        add_apps_page.done.connect (() => {
+            nav_view.pop_to_page (this);
+
+            Idle.add (add_apps.callback);
+        });
+
+        nav_view.push (add_apps_page);
+        yield;
     }
 
     string[] get_selected_apps () {

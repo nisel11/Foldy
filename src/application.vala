@@ -21,8 +21,6 @@ public sealed class Foldy.Application : Adw.Application {
         { "quit", quit },
     };
 
-    FoldyD.FoldersWatcher watcher;
-
     public Application () {
         Object (
             application_id: Config.APP_ID,
@@ -38,13 +36,6 @@ public sealed class Foldy.Application : Adw.Application {
 
     public static new Foldy.Application get_default () {
         return (Foldy.Application) GLib.Application.get_default ();
-    }
-
-    public override bool dbus_register (DBusConnection connection, string object_path) {
-        watcher = new FoldyD.FoldersWatcher ();
-        watcher.run ();
-
-        return true;
     }
 
     public void show_message (string message) {

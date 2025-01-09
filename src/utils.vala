@@ -111,4 +111,53 @@ namespace Foldy {
 
         return app_ids.data;
     }
+
+    /**
+     * Refresh app list of a folder by category.
+     */
+    void refresh_folder_category (string folder_id, string[] new_categories, string[] old_categories) {
+        var apps = Folder.get_folder_apps (folder_id);
+        var excluded_apps = Folder.get_folder_excluded_apps (folder_id);
+
+        var removed_categories = new Gee.ArrayList<string> ();
+        var added_categories = new Gee.ArrayList<string> ();
+
+        foreach (string old_category in old_categories) {
+            if (!(old_category in new_categories)) {
+                removed_categories.add (old_category);
+                debug ("Removed %s category", old_category);
+            }
+        }
+
+        foreach (string new_category in new_categories) {
+            if (!(new_category in old_categories)) {
+                added_categories.add (new_category);
+                debug ("Added %s category", new_category);
+            }
+        }
+
+        var need_to_remove = new Gee.ArrayList<string> ();
+        foreach (string category in removed_categories) {
+            var app_ids = get_app_ids_by_category (category);
+
+            foreach (var app_id in app_ids) {
+                if (app_id in apps) {
+                    need_to_remove.add (app_id);
+                }
+            }
+        }
+        Foldy.Folder.remove_folder_apps (folder_id, need_to_remove.to_array ());
+
+        var need_to_add = new Gee.ArrayList<string> ();
+        foreach (string category in added_categories) {
+            var app_ids = get_app_ids_by_category (category);
+
+            foreach (var app_id in app_ids) {
+                if (!(app_id in excluded_apps) && !(app_id in apps)) {
+                    need_to_add.add (app_id);
+                }
+            }
+        }
+        Foldy.Folder.add_folder_apps (folder_id, need_to_add.to_array ());
+    }
 }
