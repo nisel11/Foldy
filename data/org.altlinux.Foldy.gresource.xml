@@ -11,6 +11,7 @@
     <file preprocess="xml-stripblanks">ui/folder-dialog.ui</file>
     <file preprocess="xml-stripblanks">ui/folder-page.ui</file>
     <file preprocess="xml-stripblanks">ui/folders-list-page.ui</file>
+    <file preprocess="xml-stripblanks">ui/search-row.ui</file>
     <file preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
   <gresource prefix="/space/rirusha/Foldy/icons/scalable/actions/">

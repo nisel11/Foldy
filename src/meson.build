@@ -18,6 +18,7 @@ foldy_sources = [vapi_sources, blueprints, resources] + files(
   'folder-row.vala',
   'folders-list-page.vala',
   'main.vala',
+  'search-row.vala',
   'utils.vala',
   'window.vala',
 )

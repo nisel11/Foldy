@@ -55,6 +55,7 @@ blueprints = custom_target(
     'ui/folder-dialog.blp',
     'ui/folder-page.blp',
     'ui/folders-list-page.blp',
+    'ui/search-row.blp',
     'ui/window.blp',
   ),
   output: '.',

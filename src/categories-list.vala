@@ -26,6 +26,8 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
 
     public string folder_id { get; construct; }
 
+    SearchRow search_row;
+
     Gee.ArrayList<CategoryRow> rows = new Gee.ArrayList<CategoryRow> ((a, b) => {
         return a.category_name == b.category_name;
     });
@@ -40,6 +42,9 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
 
     construct {
         model = new CategoriesModel (folder_id);
+        search_row = new SearchRow ();
+
+        search_row.search_changed.connect (refilter);
 
         model.changed.connect (update_data);
         notify["expanded"].connect (update_subtitle);
@@ -71,6 +76,8 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
             folder_categories.add_all_array (Folder.get_folder_categories (folder_id));
         }
 
+        add_row (search_row);
+
         foreach (var category in model.data) {
             var row = new CategoryRow (category);
             rows.add (row);
@@ -86,6 +93,12 @@ public sealed class Foldy.CategoriesList : Adw.ExpanderRow {
         print ("\n");
 
         update_subtitle ();
+    }
+
+    void refilter (string search_string) {
+        foreach (var row in rows) {
+            row.visible = search_string.down () in row.category_name.down ();
+        }
     }
 
     public string[] get_selected_categories () {
