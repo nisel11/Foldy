@@ -30,7 +30,11 @@
   </summary>
   <launchable type="desktop-id">org.altlinux.Foldy.desktop</launchable>
   <releases>
-
+    <release version="2.4" date="2025-01-11">
+      <description>
+        <p>Added search in category list</p>
+      </description>
+    </release>
   </releases>
   <url type="homepage">https://github.com/alt-gnome-team/Foldy</url>
   <url type="bugtracker">https://github.com/alt-gnome-team/Foldy/issues</url>
