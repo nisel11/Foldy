@@ -19,46 +19,46 @@
 
 public sealed class FoldyD.FoldersWatcher : Object {
 
-    Settings folders_settings;
+    //  Settings folders_settings;
 
-    Gee.ArrayList<Folder> folder_datas;
+    //  Gee.ArrayList<Folder> folder_datas;
 
-    construct {
-        folders_settings = Foldy.get_folders_settings ();
-        folder_datas = new Gee.ArrayList<Folder> ((a, b) => {
-            return a.folder_id == b.folder_id;
-        });
+    //  construct {
+    //      folders_settings = Foldy.get_folders_settings ();
+    //      folder_datas = new Gee.ArrayList<Folder> ((a, b) => {
+    //          return a.folder_id == b.folder_id;
+    //      });
 
-        foreach (string folder_id in Foldy.get_folders ()) {
-            folder_datas.add (new Folder (folder_id));
-        }
-    }
+    //      foreach (string folder_id in Foldy.get_folders ()) {
+    //          folder_datas.add (new Folder (folder_id));
+    //      }
+    //  }
 
-    void folders_changed () {
-        string[] folders = Foldy.get_folders ();
+    //  void folders_changed () {
+    //      string[] folders = Foldy.get_folders ();
 
-        foreach (var folder_data in folder_datas) {
-            if (!(folder_data.folder_id in folders)) {
-                folder_datas.remove (folder_data);
-            }
-        }
+    //      foreach (var folder_data in folder_datas) {
+    //          if (!(folder_data.folder_id in folders)) {
+    //              folder_datas.remove (folder_data);
+    //          }
+    //      }
 
-        foreach (string folder_id in folders) {
-            bool has = false;
+    //      foreach (string folder_id in folders) {
+    //          bool has = false;
 
-            foreach (var folder_data in folder_datas) {
-                if (folder_data.folder_id == folder_id) {
-                    has = true;
-                }
-            }
+    //          foreach (var folder_data in folder_datas) {
+    //              if (folder_data.folder_id == folder_id) {
+    //                  has = true;
+    //              }
+    //          }
 
-            if (!has) {
-                folder_datas.add (new Folder.with_categories_fix (folder_id));
-            }
-        }
-    }
+    //          if (!has) {
+    //              folder_datas.add (new Folder.with_categories_fix (folder_id));
+    //          }
+    //      }
+    //  }
 
-    public int run (string[] argv) {
-        folders_settings.changed["folder-children"].connect (folders_changed);
+    public void run (string[] argv) {
+        //  folders_settings.changed["folder-children"].connect (folders_changed);
     }
 }
