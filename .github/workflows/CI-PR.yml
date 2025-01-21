@@ -41,7 +41,7 @@ jobs:
         run: apt-get install -y blueprint-compiler
         
       - name: Lint Blueprint
-        run: blueprint-compiler format -s 2 data/ui/*.blp
+        run: blueprint-compiler format -s 2 app/data/ui/*.blp
 
   checkers:
     name: Run checkers
