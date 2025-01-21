@@ -11,4 +11,4 @@ python3 vala-checkers/empty_lines_checker.py .
 echo 'Indentation check failed'
 python3 vala-checkers/indentation_checker.py .
 
-blueprint-compiler format -s 2 data/ui/*.blp
+blueprint-compiler format -s 2 app/data/ui/*.blp
