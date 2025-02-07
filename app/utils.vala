@@ -18,7 +18,7 @@
 namespace Foldy {
     [DBus (name = "org.altlinux.FoldyService")]
     internal interface ServiceProxy : Object {
-        public abstract signal void folders_refreshed ();
-        public abstract signal void folder_refreshed (string folder_id);
+        public signal void folders_refreshed ();
+        public signal void folder_refreshed (string folder_id);
     }
 }
