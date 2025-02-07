@@ -1,5 +1,3 @@
-app_id = 'org.altlinux.Foldy'
-
 if get_option('with_application')
   subdir('data')
   subdir('po')

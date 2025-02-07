@@ -24,6 +24,9 @@ add_project_arguments(
   language: ['vala'],
 )
 
+app_id = 'org.altlinux.Foldy'
+service_name = 'org.altlinux.FoldyService'
+
 subdir('lib')
 subdir('service')
 subdir('app')

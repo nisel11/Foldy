@@ -1,5 +1,3 @@
-service_name = 'org.altlinux.FoldyService'
-
 if get_option('with_service')
   service_vapi_sources = files(
     
@@ -17,7 +15,7 @@ if get_option('with_service')
     service_vala_sources,
   ]
 
-  gio_dep = dependency('gio-unix-2.0', version: '>= 2.76')
+  gio_dep = dependency('gio-unix-2.0', version: '>= ' + glib_min_version)
   gee_dep = dependency('gee-0.8')
   libfoldy_dep = dependency(versioned_lib_name, required: false)
   if not libfoldy_dep.found()
@@ -29,6 +27,8 @@ if get_option('with_service')
     gee_dep,
     libfoldy_dep,
   ]
+
+  subdir('data')
 
   executable(
     service_name,

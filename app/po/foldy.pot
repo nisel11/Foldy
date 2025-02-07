@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: foldy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-15 10:28+0300\n"
+"POT-Creation-Date: 2025-02-08 02:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,111 +18,126 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: app name should be translated
-#: data/org.altlinux.Foldy.appdata.xml.in:3
-#: data/org.altlinux.Foldy.desktop.in:4 src/main.vala:23
+#: app/data/org.altlinux.Foldy.desktop.in:4
+#: app/data/org.altlinux.Foldy.metainfo.xml.in:3 app/main.vala:23
 msgid "Foldy"
 msgstr ""
 
-#: data/org.altlinux.Foldy.appdata.xml.in:33
-msgid "Rirusha"
-msgstr ""
-
-#: data/org.altlinux.Foldy.desktop.in:5
+#: app/data/org.altlinux.Foldy.desktop.in:5
+#: app/data/org.altlinux.Foldy.metainfo.xml.in:8
+#: app/data/org.altlinux.Foldy.metainfo.xml.in:28
 msgid "Folder manager for mobile devices"
 msgstr ""
 
 #. Translators: keep number of ';'
-#: data/org.altlinux.Foldy.desktop.in:7
+#: app/data/org.altlinux.Foldy.desktop.in:7
 msgid "folder"
 msgstr ""
 
-#: data/ui/add-apps-page.blp:5
-msgid "All applications"
+#: app/data/org.altlinux.Foldy.metainfo.xml.in:35
+msgid "Added search in category list"
 msgstr ""
 
-#: data/ui/add-apps-page.blp:14
+#: app/data/org.altlinux.Foldy.metainfo.xml.in:42
+msgid "Vladimir Vaskov"
+msgstr ""
+
+#: app/data/ui/add-apps-page.blp:5
+msgid "Applications without folder"
+msgstr ""
+
+#: app/data/ui/add-apps-page.blp:20
 msgid "Add selected applications"
 msgstr ""
 
-#: data/ui/app-info-dialog.blp:9
+#: app/data/ui/app-info-dialog.blp:11
 msgid "Application information"
 msgstr ""
 
 #. valign: end;
-#: data/ui/app-info-dialog.blp:76
+#: app/data/ui/app-info-dialog.blp:78
 msgid "Launch"
 msgstr ""
 
-#: data/ui/base-page.blp:92
-msgid "Nothing to show"
+#: app/data/ui/base-page.blp:97
+msgid "There is nothing to show"
 msgstr ""
 
-#: data/ui/edit-folder-dialog.blp:9
-msgid "Folder settings"
-msgstr ""
-
-#: data/ui/edit-folder-dialog.blp:33
-msgid "Folder name"
-msgstr ""
-
-#: data/ui/edit-folder-dialog.blp:37
+#: app/data/ui/categories-list.blp:5
 msgid "Folder categories"
 msgstr ""
 
-#: data/ui/edit-folder-dialog.blp:51
-msgid "Apply"
+#: app/data/ui/folder-dialog.blp:43
+msgid "Folder name"
 msgstr ""
 
-#: data/ui/folder-page.blp:35
+#: app/data/ui/folder-page.blp:43
 msgid "Add apps"
 msgstr ""
 
-#: data/ui/folder-page.blp:48
+#: app/data/ui/folder-page.blp:64
 msgid "Remove selected"
 msgstr ""
 
-#: data/ui/folders-list-page.blp:13
+#: app/data/ui/folders-list-page.blp:5
+msgid "All folders"
+msgstr ""
+
+#: app/data/ui/folders-list-page.blp:19
 msgid "Create new folder"
 msgstr ""
 
-#: data/ui/main-menu-button.blp:8
-msgid "Main menu"
+#: app/folder-dialog.vala:55
+msgid "Folder creation"
 msgstr ""
 
-#: data/ui/main-menu-button.blp:15
-msgid "_About Foldy"
+#: app/folder-dialog.vala:56
+msgid "Create"
 msgstr ""
 
-#: src/edit-folder-dialog.vala:48
-msgid "No categories"
+#: app/folder-dialog.vala:57
+msgid "Unnamed Folder"
 msgstr ""
 
-#: src/edit-folder-dialog.vala:60
+#: app/folder-dialog.vala:64
+msgid "Folder settings"
+msgstr ""
+
+#: app/folder-dialog.vala:65
+msgid "Apply"
+msgstr ""
+
+#: app/folder-dialog.vala:141
 msgid "Name can't be empty"
 msgstr ""
 
-#: src/folder-page.vala:74
+#: app/folder-dialog.vala:147
+msgid "Categories can't be more than 2"
+msgstr ""
+
+#: app/folder-page.vala:107
 #, c-format
 msgid "Are you want to delete folder '%s'?"
 msgstr ""
 
-#: src/folder-page.vala:78
+#: app/folder-page.vala:111
 msgid "Cancel"
 msgstr ""
 
-#: src/folder-page.vala:79
+#: app/folder-page.vala:112
 msgid "Delete"
 msgstr ""
 
-#: src/folders-list-page.vala:37
+#: app/folder-page.vala:176
+#, c-format
+msgid "Folder '%s'"
+msgstr ""
+
+#: app/folders-list-page.vala:41
 msgid "Can't open folder settings"
 msgstr ""
 
-#: src/utils.vala:212
-msgid "Unnamed Folder"
-msgstr ""
-
 #. Translators: NAME <EMAIL.COM> /n NAME <EMAIL.COM>
-#: src/window.vala:55
+#: app/window.vala:62
 msgid "translator-credits"
 msgstr ""
