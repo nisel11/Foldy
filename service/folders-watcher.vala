@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-[DBus(name = "org.altlinux.FoldyService")]
+[DBus (name = "org.altlinux.FoldyService")]
 public sealed class Foldy.FoldersWatcher : Object {
 
     Settings folders_settings;
