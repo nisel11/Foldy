@@ -90,6 +90,6 @@ jobs:
       uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
         bundle: foldy.flatpak
-        manifest-path: build-aux/flatpak/org.altlinux.Foldy.yml
+        manifest-path: build-aux/flatpak/org.altlinux.Foldy.json
         run-tests: true
         cache-key: flatpak-builder-${{ github.sha }} 
