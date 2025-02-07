@@ -106,14 +106,12 @@ public sealed class Foldy.FolderDialog : Adw.Dialog {
     [GtkCallback]
     void on_apply_button_activate () {
         if (check_apply ()) {
-            string[] old_categories = folder_id != null ? get_folder_categories (folder_id) : new string[0];
-
-            string lfolder_id = folder_id != null ? folder_id : create_folder (folder_name_entry.text);
+            var lfolder_id = folder_id != null ? folder_id : create_folder (Uuid.string_random (), folder_name_entry.text);
+            Foldy.sync ();
 
             set_folder_name (lfolder_id, folder_name_entry.text);
             set_folder_categories (lfolder_id, categories_list.get_selected_categories ());
-
-            refresh_folder_category (lfolder_id, categories_list.get_selected_categories (), old_categories);
+            Foldy.sync ();
 
             close ();
             applyed (lfolder_id);

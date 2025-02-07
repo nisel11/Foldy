@@ -17,10 +17,28 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-using FoldyD;
+using Foldy;
+
+void on_bus_aquired (DBusConnection conn) {
+    try {
+        var service = new FoldersWatcher ();
+        conn.register_object ("/org/altlinux/FoldyService", service);
+
+    } catch (IOError e) {
+        warning ("Could not register service: %s\n", e.message);
+    }
+}
 
 int main (string[] argv) {
-    new FoldersWatcher ().run (argv);
+    Bus.own_name (
+        BusType.SESSION, "org.altlinux.FoldyService",
+        BusNameOwnerFlags.ALLOW_REPLACEMENT,
+        on_bus_aquired,
+        () => {},
+        () => warning ("Could not acquire name\n")
+    );
+
+    new MainLoop ().run ();
 
     return 0;
 }

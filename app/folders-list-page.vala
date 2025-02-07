@@ -56,7 +56,7 @@ public sealed class Foldy.FoldersListPage : BasePage {
     }
 
     async void open_folder (string new_folder_id) {
-        if (get_folder_apps (new_folder_id).length > 0) {
+        if (get_folder_apps (new_folder_id).length > 0 || get_folder_categories (new_folder_id).length > 0) {
             var folder_page = new FolderPage (nav_view, new_folder_id);
             nav_view.push (folder_page);
             return;
@@ -71,7 +71,7 @@ public sealed class Foldy.FoldersListPage : BasePage {
         });
 
         ulong handler_id2 = add_apps_page.done.connect (() => {
-            if (get_folder_apps (new_folder_id).length == 0) {
+            if (get_folder_apps (new_folder_id).length == 0 && get_folder_categories (new_folder_id).length == 0) {
                 remove_folder (new_folder_id);
                 Idle.add (open_folder.callback);
 

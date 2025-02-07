@@ -37,7 +37,7 @@ public sealed class Foldy.CategoriesModel : Object {
     void app_changed () {
         var new_cat = new Gee.ArrayList<string> ();
 
-        new_cat.add_all_array (get_installed_categories (excluded_folder_id));
+        new_cat.add_all_array (Foldy.get_installed_categories (excluded_folder_id));
 
         new_cat.sort ();
         data = new_cat.to_array ();

@@ -21,6 +21,7 @@ if get_option('with_library')
   library_vala_sources = files(
     'folder.vala',
     'folders.vala',
+    'utils.vala',
   )
 
   library_sources = [
@@ -33,13 +34,16 @@ if get_option('with_library')
   ]
 
   deps_pkgs = [
-    'gio-2.0',
+    'gio-unix-2.0',
+    'gee-0.8',
   ]
 
-  gio_dep = dependency('gio-2.0')
+  gio_dep = dependency('gio-unix-2.0')
+  gee_dep = dependency('gee-0.8')
 
   library_dependencies = [
     gio_dep,
+    gee_dep,
   ]
 
   lib = shared_library(
@@ -77,10 +81,11 @@ if get_option('with_library')
     custom_target(
       'typelib',
       command: [
-      g_ir_compiler,
-      '--shared-library', '@PLAINNAME@',
-      '--output', '@OUTPUT@',
-      meson.current_build_dir() / gir_name,
+        g_ir_compiler,
+        '--shared-library', '@PLAINNAME@',
+        '--output', '@OUTPUT@',
+        '--includedir', gee_dep.get_variable('datadir') / 'gir-1.0',
+        meson.current_build_dir() / gir_name,
       ],
       input: lib,
       output: typelib_name,

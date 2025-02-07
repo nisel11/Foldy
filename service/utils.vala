@@ -15,43 +15,6 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-namespace FoldyD {
-    string[] get_categories_by_app_id (string app_id) {
-        var categories = new Gee.ArrayList<string> ();
-
-        var desktop = new DesktopAppInfo (app_id);
-        string? categories_string = desktop.get_categories ();
-
-        if (categories_string == null) {
-            return {};
-        }
-
-        if (categories_string.length == 0) {
-            return {};
-        }
-
-        var raw_categories = categories_string.split (";");
-
-        foreach (var raw_category in raw_categories) {
-            if (raw_category.length > 0) {
-                categories.add (raw_category);
-            }
-        }
-
-        return categories.to_array ();
-    }
-
-    string[] get_app_ids_by_category (string category) {
-        var app_ids = new Array<string> ();
-
-        foreach (AppInfo app_info in AppInfo.get_all ()) {
-            string app_id = app_info.get_id ();
-
-            if (category in get_categories_by_app_id (app_id)) {
-                app_ids.append_val (app_id);
-            }
-        }
-
-        return app_ids.data;
-    }
+namespace Foldy {
+    
 }

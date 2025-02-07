@@ -31,6 +31,8 @@ public sealed class Foldy.FolderPage : BasePage {
 
     Gee.ArrayList<AppRow> app_rows = new Gee.ArrayList<AppRow> ();
 
+    ServiceProxy proxy;
+
     public string folder_id { get; construct; }
 
     Settings settings;
@@ -84,6 +86,20 @@ public sealed class Foldy.FolderPage : BasePage {
                 }
             }
         });
+
+        proxy = Bus.get_proxy_sync<ServiceProxy> (
+            BusType.SESSION,
+            "org.altlinux.FoldyService",
+            "/org/altlinux/FoldyService"
+        );
+
+        proxy.folder_refreshed.connect (on_folder_refreshed);
+    }
+
+    void on_folder_refreshed (string folder_id) {
+        if (folder_id == this.folder_id) {
+            refresh ();
+        }
     }
 
     [GtkCallback]

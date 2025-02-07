@@ -17,48 +17,65 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-public sealed class FoldyD.FoldersWatcher : Object {
+[DBus(name = "org.altlinux.FoldyService")]
+public sealed class Foldy.FoldersWatcher : Object {
 
-    //  Settings folders_settings;
+    Settings folders_settings;
 
-    //  Gee.ArrayList<Folder> folder_datas;
+    Gee.ArrayList<FolderData> folder_datas;
 
-    //  construct {
-    //      folders_settings = Foldy.get_folders_settings ();
-    //      folder_datas = new Gee.ArrayList<Folder> ((a, b) => {
-    //          return a.folder_id == b.folder_id;
-    //      });
+    public signal void folders_refreshed ();
 
-    //      foreach (string folder_id in Foldy.get_folders ()) {
-    //          folder_datas.add (new Folder (folder_id));
-    //      }
-    //  }
+    public signal void folder_refreshed (string folder_id);
 
-    //  void folders_changed () {
-    //      string[] folders = Foldy.get_folders ();
+    construct {
+        folders_settings = get_folders_settings ();
+        folder_datas = new Gee.ArrayList<FolderData> ((a, b) => {
+            return a.folder_id == b.folder_id;
+        });
 
-    //      foreach (var folder_data in folder_datas) {
-    //          if (!(folder_data.folder_id in folders)) {
-    //              folder_datas.remove (folder_data);
-    //          }
-    //      }
+        foreach (string folder_id in get_folders ()) {
+            var folder_data = new FolderData (folder_id);
+            folder_datas.add (folder_data);
+            folder_data.refreshed.connect ((folder_id) => {
+                folder_refreshed (folder_id);
+            });
+        }
 
-    //      foreach (string folder_id in folders) {
-    //          bool has = false;
+        folders_settings.changed["folder-children"].connect (folders_changed);
+    }
 
-    //          foreach (var folder_data in folder_datas) {
-    //              if (folder_data.folder_id == folder_id) {
-    //                  has = true;
-    //              }
-    //          }
+    void folders_changed () {
+        string[] folders = get_folders ();
 
-    //          if (!has) {
-    //              folder_datas.add (new Folder.with_categories_fix (folder_id));
-    //          }
-    //      }
-    //  }
+        foreach (var folder_data in folder_datas) {
+            if (!(folder_data.folder_id in folders)) {
+                folder_datas.remove (folder_data);
+                folder_data.reset ();
+            }
+        }
 
-    public void run (string[] argv) {
-        //  folders_settings.changed["folder-children"].connect (folders_changed);
+        foreach (string folder_id in folders) {
+            bool has = false;
+
+            foreach (var folder_data in folder_datas) {
+                if (folder_data.folder_id == folder_id) {
+                    has = true;
+                }
+            }
+
+            if (!has) {
+                var folder_data = new FolderData.with_categories_fix (folder_id);
+                folder_datas.add (folder_data);
+                folder_data.refreshed.connect ((folder_id) => {
+                    folder_refreshed (folder_id);
+                });
+            }
+        }
+
+        Foldy.sync ();
+
+        folders_refreshed ();
+        message ("Folders refreshed");
     }
 }

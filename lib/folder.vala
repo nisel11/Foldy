@@ -42,8 +42,8 @@ namespace Foldy.Folder {
         return get_folder_settings (folder_id).get_strv ("categories");
     }
 
-    public static void set_folder_categories (string folder_id, string[]? folder_categories) {
-        get_folder_settings (folder_id).set_strv ("categories", folder_categories);
+    public static void set_folder_categories (string folder_id, string[] folder_categories) {
+        get_folder_settings (folder_id).set_strv ("categories", folder_categories.copy ());
     }
 
     public static void add_folder_categories (string folder_id, string[] folder_categories) {
@@ -90,7 +90,7 @@ namespace Foldy.Folder {
     }
 
     public static void set_folder_apps (string folder_id, string[]? folder_apps) {
-        get_folder_settings (folder_id).set_strv ("apps", folder_apps);
+        get_folder_settings (folder_id).set_strv ("apps", folder_apps.copy ());
     }
 
     public static void add_folder_apps (string folder_id, string[] folder_apps) {
@@ -127,7 +127,7 @@ namespace Foldy.Folder {
     }
 
     public static void set_folder_excluded_apps (string folder_id, string[]? folder_excluded_apps) {
-        get_folder_settings (folder_id).set_strv ("excluded-apps", folder_excluded_apps);
+        get_folder_settings (folder_id).set_strv ("excluded-apps", folder_excluded_apps.copy ());
     }
 
     public static void add_folder_excluded_apps (string folder_id, string[] folder_excluded_apps) {
