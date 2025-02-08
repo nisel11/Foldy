@@ -1,4 +1,7 @@
 if get_option('with_service')
+  subdir('po')
+  subdir('data')
+
   service_vapi_sources = files(
     
   )
@@ -27,8 +30,6 @@ if get_option('with_service')
     gee_dep,
     libfoldy_dep,
   ]
-
-  subdir('data')
 
   executable(
     service_name,

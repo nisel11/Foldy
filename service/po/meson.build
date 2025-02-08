@@ -1,1 +1,1 @@
-i18n.gettext(SERVICE_NAME, preset: 'glib')
+i18n.gettext(service_name, preset: 'glib')

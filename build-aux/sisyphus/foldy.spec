@@ -1,9 +1,10 @@
 %define _unpackaged_files_terminate_build 1
 %define app_id org.altlinux.Foldy
 %define service_name org.altlinux.FoldyService
+%define gir_name Foldy
 %define glib_min_version 2.76
-%define major_api_version @MAJOR_API_VERSION@
-%define minor_api_version @MINOR_API_VERSION@
+%define api_version @LAST_API_VERSION@
+%define minor_version @LAST_MINOR_VERSION@
 
 Name: foldy
 Version: @LAST@
@@ -15,65 +16,77 @@ Group: Other
 Url: https://github.com/alt-gnome/Foldy
 Vcs: https://github.com/alt-gnome/Foldy.git
 
-Source0: %name-%version.tar
+Source: %name-%version.tar
 
-Requires: lib%name-%major_api_version = %version-%release
-Requires: lib%name-service = %version-%release
+Requires: lib%name-%api_version = %version-%release
+Requires: %name-service = %version-%release
 
-BuildRequires(pre): rpm-macros-meson rpm-build-vala rpm-build-gir
+BuildRequires(pre): rpm-macros-meson rpm-build-vala rpm-build-gir rpm-build-xdg
 BuildRequires: meson
 BuildRequires: vala
 BuildRequires: pkgconfig(libadwaita-1) >= 1.6
-BuildRequires: pkgconfig(gio-unix-2.0) >= glib_min_version
+BuildRequires: pkgconfig(gio-unix-2.0) >= %glib_min_version
 BuildRequires: pkgconfig(gee-0.8)
-BuildRequires: vapi(Gee-0.8)
+BuildRequires: vapi(gee-0.8)
+BuildRequires: gir(Gee) = 0.8
 BuildRequires: blueprint-compiler
+BuildRequires: gobject-introspection-devel
 %{?_enable_check:BuildRequires: /usr/bin/appstreamcli /usr/bin/desktop-file-validate}
 
 %description
 %summary.
 
-%project service
+%package service
 Summary: Service for categories fix in GNOME and phosh
 Group: Other
 
-%description
+%description service
 %summary.
 
-%project -n lib%name-%major_api_version
+Requires: lib%name-%api_version = %version-%release
+
+%package -n lib%name-%api_version
 Summary: Foldy library
 Group: System/Libraries
 
-%description
+%description -n lib%name-%api_version
 %summary.
 
-%project -n lib%name-%major_api_version-devel
+%package -n lib%name-%api_version-devel
 Summary: Foldy devel files
 Group: Development/C
 
-%description
+%description -n lib%name-%api_version-devel
 %summary.
 
-%project -n lib%name-%major_api_version-gir
+Requires: lib%name-%api_version = %version-%release
+
+%package -n lib%name-%api_version-gir
 Summary: Foldy typelib files
 Group: System/Libraries
 
-%description
+%description -n lib%name-%api_version-gir
 %summary.
 
-%project -n lib%name-%major_api_version-gir-devel
+Requires: lib%name-%api_version = %version-%release
+
+%package -n lib%name-%api_version-gir-devel
 Summary: Foldy devel gir files
 Group: Development/Other
 
-%description
+%description -n lib%name-%api_version-gir-devel
 %summary.
 
-%project -n lib%name-%major_api_version-devel-vala
+Requires: lib%name-%api_version-gir = %version-%release
+
+%package -n lib%name-%api_version-devel-vala
 Summary: Foldy devel files for vala
 Group: Development/Other
 
-%description
+%description -n lib%name-%api_version-devel-vala
 %summary.
+
+Requires: lib%name-%api_version-devel = %version-%release
 
 %prep
 %setup
@@ -98,27 +111,26 @@ export AS_VALIDATE_NONET="true"
 %_iconsdir/hicolor/*/apps/*.svg
 %doc README.md
 
-%files service -f %service_name.lang
+%files service
+%_bindir/%service_name
 %_datadir/dbus-1/services/%service_name.service
+%_desktopdir/%service_name.desktop
 %_xdgconfigdir/autostart/%service_name.desktop
 
-%files -n lib%name-%major_api_version
-%_libdir/lib%name-%major_api_version.so.*
+%files -n lib%name-%api_version
+%_libdir/lib%name-%api_version.so.*
 
-%files -n lib%name-%major_api_version-devel
-%_libdir/lib%name-%major_api_version.so
-%_pkgconfigdir/lib%name-%major_api_version.pc
-%_includedir/lib%name-%major_api_version.h
+%files -n lib%name-%api_version-devel
+%_libdir/lib%name-%api_version.so
+%_pkgconfigdir/lib%name-%api_version.pc
+%_includedir/lib%name-%api_version.h
 
-%files -n lib%name-%major_api_version-devel
-%_libdir/lib%name-%major_api_version.so
+%files -n lib%name-%api_version-devel-vala
+%_vapidir/lib%name-%api_version.deps
+%_vapidir/lib%name-%api_version.vapi
 
-%files -n lib%name-%major_api_version-devel-vala
-%_vapidir/lib%name-%major_api_version.deps
-%_vapidir/lib%name-%major_api_version.vapi
+%files -n lib%name-%api_version-gir
+%_typelibdir/%gir_name-%api_version.typelib
 
-%files -n lib%name-%major_api_version-gir
-%_typelibdir/lib%name-%major_api_version.typelib
-
-%files -n lib%name-%major_api_version-gir-devel
-%_girdir/lib%name-%major_api_version.gir
+%files -n lib%name-%api_version-gir-devel
+%_girdir/%gir_name-%api_version.gir
