@@ -17,6 +17,7 @@ Url: https://github.com/alt-gnome/Foldy
 Vcs: https://github.com/alt-gnome/Foldy.git
 
 Source: %name-%version.tar
+Patch: %name-%version-alt.patch
 
 Requires: lib%name-%api_version = %version-%release
 Requires: %name-service = %version-%release
@@ -40,10 +41,10 @@ BuildRequires: gobject-introspection-devel
 Summary: Service for categories fix in GNOME and phosh
 Group: Other
 
+Requires: lib%name-%api_version = %version-%release
+
 %description service
 %summary.
-
-Requires: lib%name-%api_version = %version-%release
 
 %package -n lib%name-%api_version
 Summary: Foldy library
@@ -56,40 +57,43 @@ Group: System/Libraries
 Summary: Foldy devel files
 Group: Development/C
 
+Requires: lib%name-%api_version = %version-%release
+
 %description -n lib%name-%api_version-devel
 %summary.
-
-Requires: lib%name-%api_version = %version-%release
-
-%package -n lib%name-%api_version-gir
-Summary: Foldy typelib files
-Group: System/Libraries
-
-%description -n lib%name-%api_version-gir
-%summary.
-
-Requires: lib%name-%api_version = %version-%release
-
-%package -n lib%name-%api_version-gir-devel
-Summary: Foldy devel gir files
-Group: Development/Other
-
-%description -n lib%name-%api_version-gir-devel
-%summary.
-
-Requires: lib%name-%api_version-gir = %version-%release
 
 %package -n lib%name-%api_version-devel-vala
 Summary: Foldy devel files for vala
 Group: Development/Other
 
+BuildArch: noarch
+Requires: lib%name-%api_version-devel = %version-%release
+
 %description -n lib%name-%api_version-devel-vala
 %summary.
 
-Requires: lib%name-%api_version-devel = %version-%release
+%package -n lib%name-%api_version-gir
+Summary: Foldy typelib files
+Group: System/Libraries
+
+Requires: lib%name-%api_version = %version-%release
+
+%description -n lib%name-%api_version-gir
+%summary.
+
+%package -n lib%name-%api_version-gir-devel
+Summary: Foldy devel gir files
+Group: Development/Other
+
+BuildArch: noarch
+Requires: lib%name-%api_version-gir = %version-%release
+
+%description -n lib%name-%api_version-gir-devel
+%summary.
 
 %prep
 %setup
+%autopatch -p1
 
 %build
 %meson
