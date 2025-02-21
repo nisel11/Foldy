@@ -37,8 +37,6 @@ public sealed class Foldy.FolderPage : BasePage {
 
     Settings settings;
 
-    Gee.ArrayList<Cancellable> update_cancellables = new Gee.ArrayList<Cancellable> ();
-
     public FolderPage (Adw.NavigationView nav_view, string folder_id) {
         Object (nav_view: nav_view, folder_id: folder_id);
     }
