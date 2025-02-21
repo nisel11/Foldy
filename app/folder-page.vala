@@ -87,13 +87,17 @@ public sealed class Foldy.FolderPage : BasePage {
             }
         });
 
-        proxy = Bus.get_proxy_sync<ServiceProxy> (
-            BusType.SESSION,
-            "org.altlinux.FoldyService",
-            "/org/altlinux/FoldyService"
-        );
-
-        proxy.folder_refreshed.connect (on_folder_refreshed);
+        try {
+            proxy = Bus.get_proxy_sync<ServiceProxy> (
+                BusType.SESSION,
+                "org.altlinux.FoldyService",
+                "/org/altlinux/FoldyService"
+            );
+    
+            proxy.folder_refreshed.connect (on_folder_refreshed);
+        } catch (Error e) {
+            warning ("Can't get proxy of FoldyService: %s", e.message);
+        }
     }
 
     void on_folder_refreshed (string folder_id) {
