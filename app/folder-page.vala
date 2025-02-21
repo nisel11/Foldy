@@ -44,29 +44,11 @@ public sealed class Foldy.FolderPage : BasePage {
     }
 
     construct {
-        bind_property (
-            "selection-enabled",
-            bottom_stack,
-            "visible-child-name",
-            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE,
-            (binding, srcval, ref trgval) => {
-                trgval.set_string (srcval.get_boolean () ? "selection-mode" : "default");
-            }
-        );
-
-        bind_property (
-            "selection-enabled",
-            delete_revealer,
-            "reveal-child",
-            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE | BindingFlags.INVERT_BOOLEAN
-        );
-
-        bind_property (
-            "selection-enabled",
-            settings_revealer,
-            "reveal-child",
-            BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE | BindingFlags.INVERT_BOOLEAN
-        );
+        notify["selection-enabled"].connect (() => {
+            bottom_stack.visible_child_name = selection_enabled ? "selection-mode" : "default";
+            delete_revealer.reveal_child = !selection_enabled;
+            settings_revealer.reveal_child = !selection_enabled;
+        });
 
         folder_settings_button.clicked.connect (() => {
             new FolderDialog.edit (folder_id, get_folder_name (folder_id)).present (this);
