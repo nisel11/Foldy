@@ -73,7 +73,7 @@ public sealed class Foldy.FolderPage : BasePage {
                 "org.altlinux.FoldyService",
                 "/org/altlinux/FoldyService"
             );
-    
+
             proxy.folder_refreshed.connect (on_folder_refreshed);
         } catch (Error e) {
             warning ("Can't get proxy of FoldyService: %s", e.message);
