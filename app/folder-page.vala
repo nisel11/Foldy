@@ -88,9 +88,9 @@ public sealed class Foldy.FolderPage : BasePage {
 
     [GtkCallback]
     void delete_folder () {
-        var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?".printf (
+        var dialog = new Adw.AlertDialog (_("Are you want to delete folder '%s'?").printf (
             get_folder_name (folder_id)
-        )), null);
+        ), null);
 
         dialog.add_response ("no", _("Cancel"));
         dialog.add_response ("yes", _("Delete"));
